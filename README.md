@@ -1,7 +1,7 @@
 # QKW 
 ## Generalizing aliasing to simplify navigation, and executing complex multi-line terminal command sequences¶
 
-**Instructions Manual**: [[manual]](https://github.com/ravijanjam/qkw/blob/master/docs/qkw-manual.pdf) 
+**Manual**: Refer to the [[manual]](https://github.com/ravijanjam/qkw/blob/master/docs/qkw-manual.pdf) for all the available options, use cases and other information.  
 
 **Installation (Ubuntu/Debian)**
 
@@ -34,9 +34,15 @@ Setup the environment variable
 export QKW_CONFIG=/etc/qkw-data/qkw-config.yaml
 ```
 
-Start the program
+Start the program and check the default tables `userdata.db` has two tables dir\_1, and cmd\_1
+
 ```bash
+
+# get version info
 qkw -v
+
+# list all tables
+qkw -T -lA 
 ```
 
 <hr>
@@ -139,8 +145,10 @@ To learn more, on how to set up `macros` and other advanced use cases on how to 
 
 <hr>
 The basic tables used to store the data
+
 *  _cmd_ :commands,scripts,etc with a note
 *  _dir_ :directory paths
+
 
 ### CMD tables
 ![](https://github.com/ravijanjam/qkw/blob/master/docs/cmd_table.png)
