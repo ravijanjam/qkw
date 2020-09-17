@@ -16,6 +16,7 @@ apt-get install -y libsqlite3-dev
 ```bash
 python3 checktools.py
 ```
+* If necessary, modify the compile options `OPTS_SQLITE_3,OPTS_YAML-CPP,OPTS_FMT` in the Makefile, to point to the libs, and headers. There are subtle differences in libraries installed via _lib_ as a dev package and during compilation. 
 
 * Get into the `build` directory, and follow instructions for installing the dependencies [[fmt]](https://github.com/fmtlib/fmt), and [[yaml-cpp]](https://github.com/jbeder/yaml-cpp)
 
@@ -43,6 +44,15 @@ qkw -v
 ## Quick Start
 
 There are about 75+ options to play with. Some of the most important ones demonstrated here. For all the available options, please read the section _Options_ in the [[manual]](https://github.com/ravijanjam/qkw/blob/master/docs/qkw-manual.pdf). 
+
+The core option set 
+* add
+* delete
+* modify
+* search
+
+<hr>
+
 * Get help
 ```bash
 qkw -h -T -cC
