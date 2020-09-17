@@ -46,7 +46,7 @@ apt-get install -y libsqlite3-dev
 ```bash
 python3 checktools.py
 ```
-* If necessary, modify the compile options `OPTS_SQLITE_3,OPTS_YAML-CPP,OPTS_FMT` in the Makefile, to point to the libs, and headers. There are subtle differences in libraries installed via _lib_ as a dev package or via compiled libraries. `pkg-config` can get the options for you as well after installing. 
+* If necessary, modify the compile options `OPTS_SQLITE_3,OPTS_YAML-CPP,OPTS_FMT` in the Makefile, to point to the libs, and headers. There are subtle differences in libraries installed via _lib_ as a dev package or via compiled libraries. `pkg-config` provided options can work as well. 
 
 * Get into the `build` directory, and follow instructions for installing the dependencies [[fmt]](https://github.com/fmtlib/fmt), and [[yaml-cpp]](https://github.com/jbeder/yaml-cpp)
 
