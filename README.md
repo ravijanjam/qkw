@@ -37,7 +37,9 @@ qkw -v
 ```
 
 <hr>
+
 ## Quick Start
+
 There are about 75+ options to play with. Some of the most important ones demonstrated here. For all the available options, please read the section _Options_ in the manual. 
 * Get help
 ```bash
