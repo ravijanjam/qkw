@@ -1,9 +1,16 @@
 # QKW 
 ## Generalizing aliasing to simplify navigation, and executing complex multi-line terminal command sequences¶
 
-The purpose of this application is to tag anything with a _label_ and, use it to retrieve the associated data for other applications. During any software development activity, one might need to to quickly test a bunch of options, and not to mention their variations, and different environments. In such scenarios, it's hard to save them as aliases as well as have some form of documentation for them. **qkw** helps bridge that gap. One can rapidly create variations using a collection of commands, and execute them with a single potentially versioned tag. 
+The purpose of this application is to tag anything with a _label_ and, use it to retrieve the associated data for other applications. During any software development activity one might need to: 
 
-In different environments, say in linux flavors, one might be repeating the same functionality, but with a different set of commands. Having them stored in different spaces (tables) and carrying them to a different environment mean, one can save a lot of time without having to remember the commands. Additionally a help-string or a note can also be added along with the commands. So, switching environments for executing same functionality is simplified as well. 
+* Quickly test a bunch of options, and not to mention their variations, and different environments. 
+* Rapidly create variations, and execute them with a single versioned tag. 
+* Add a _help-string_ or note with every option set.
+* Similar functionality, but different command base/ options can be tagged without having to remember them. 
+
+As an example:
+
+In different environments, say in linux flavors, one might be repeating the same functionality, but with a different set of commands. Having them stored in different spaces (tables) and carrying them to a different environment one can save a lot of time without having to remember the commands. 
 
 
 <br>
