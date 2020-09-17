@@ -123,8 +123,7 @@ runfast lss
 
 To learn more, on how to set up `macros` and other advanced use cases on how to use `qkw`, please consult the [[manual]]()
 
-
-
+<hr>
 The basic tables used to store the data
 * **cmd**:commands,scripts,etc with a note,
 * **dir**:directory paths
