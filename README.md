@@ -39,7 +39,7 @@ qkw -v
 
 The basic tables used to store the data, **cmd**:commands,scripts,etc with a note, and **dir**:directory paths
 ### CMD tables
-![](../docs/cmd_table.png)
+![](https://github.com/ravijanjam/qkw/blob/master/docs/cmd_table.png)
 
 ### DIR tables
-![](../docs/dir_table.png)
+![](https://github.com/ravijanjam/qkw/blob/master/docs/dir_table.png)
