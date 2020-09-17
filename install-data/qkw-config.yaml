@@ -1,0 +1,16 @@
+version_info: "1.0"
+docs: https://github.com/ravijanjam/qkw
+cmd:
+  search:
+    db: /etc/qkw-config/userdata.db
+    table: cmd_1
+  insert:
+    db: /etc/qkw-config/userdata.db
+    table: cmd_1
+dir:
+  search:
+    db: /etc/qkw-config/userdata.db
+    table: dir_1
+  insert:
+    db: /etc/qkw-config/userdata.db
+    table: dir_1

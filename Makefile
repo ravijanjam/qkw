@@ -9,7 +9,6 @@ TESTS = ./tests
 TESTS_BIN = ./tests_bin
 
 CC = g++ -std=c++2a -g
-DBNAME = ./data/userdata.db
 
 # install 
 BIN_PATH = /usr/local/bin
@@ -51,8 +50,8 @@ install:
 	cp $(BUILD)/qkw $(BIN_PATH)/
 	mkdir -p $(CFG_PATH) >> /dev/null 
 	mkdir -p $(MAN_PATH) >> /dev/null 
-	cp $(INSTALL-DATA)/qkw.man $(MAN_PATH)/
-	#cp $(DATA)/* $(CFG_PATH)/
+	cp $(INSTALL-DATA)/qkw.1.gz $(MAN_PATH)/
+	cp $(INSTALL-DATA)/userdata.db $(CFG_PATH)/
 	
 	@echo "--------------------------------------------------------"
 	@echo " Please set QKW_CONFIG to /etc/qkw-data/qkw-config.yaml"
