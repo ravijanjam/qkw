@@ -36,3 +36,10 @@ Start the program
 qkw -v
 ```
 
+
+The basic tables used to store the data, **cmd**:commands,scripts,etc with a note, and **dir**:directory paths
+### CMD tables
+![](../docs/cmd_table.png)
+
+### DIR tables
+![](../docs/dir_table.png)
