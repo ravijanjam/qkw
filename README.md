@@ -40,7 +40,7 @@ qkw -v
 
 ## Quick Start
 
-There are about 75+ options to play with. Some of the most important ones demonstrated here. For all the available options, please read the section _Options_ in the manual. 
+There are about 75+ options to play with. Some of the most important ones demonstrated here. For all the available options, please read the section _Options_ in the [[manual]](https://github.com/ravijanjam/qkw/blob/master/docs/qkw-manual.pdf). 
 * Get help
 ```bash
 qkw -h -T -cC
@@ -123,7 +123,7 @@ cd2 m
 runfast lss 
 ```
 
-To learn more, on how to set up `macros` and other advanced use cases on how to use `qkw`, please consult the [[manual]]()
+To learn more, on how to set up `macros` and other advanced use cases on how to use `qkw`, please consult the [[manual]](https://github.com/ravijanjam/qkw/blob/master/docs/qkw-manual.pdf)
 
 <hr>
 The basic tables used to store the data
