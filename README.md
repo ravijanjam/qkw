@@ -1,7 +1,7 @@
 # QKW 
 ## Generalizing aliasing to simplify navigation, and executing complex multi-line terminal command sequences¶
 
-The purpose of this application is to tag anything with a _label_ and, use it to retrieve the associated data for other applications. During any software development activity one might need to: 
+The purpose of this application is to tag anything with a _label_ and, use it to retrieve the associated data for other applications. Some of qkw's use cases:
 
 * Quickly test a bunch of options, not to mention their variations, in different environments. 
 * Rapidly create variations, and execute them with a single versioned tag. 
