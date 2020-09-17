@@ -4,7 +4,7 @@
 The purpose of this application is to tag anything with a _label_ and, use it to retrieve the associated data for other applications. Some of qkw's use cases:
 
 * Quickly test a bunch of options, not to mention their variations, in different environments. 
-* Rapidly create variations, and execute them with a versioned tag. 
+* Rapidly create variations, and save them with a versioned tag. 
 * Add a _help-string_ or _note_ with the associated data.
 * Similar functionality, but different command base/ options can be tagged without having to remember them. 
 * Store the data in a file rather than a executable script. 
