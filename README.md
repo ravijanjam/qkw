@@ -13,7 +13,7 @@ The purpose of this application is to tag anything with a _label_ and, use it to
 
 For example:
 
-In different environments, say in linux flavors, one might be repeating the same functionality, but with a different set of commands. Say there are two bashrc files, one for ubuntu, and one for opensuse labeled in two _cmd_ tables ubuntu, opensuse as just _bashrc_. Getting the data and sourcing should be straightforward. 
+In different environments, say in linux flavors, one might be repeating the same functionality, but with a different set of commands. Say there are two bashrc files, one for ubuntu, and one for opensuse labeled in two _cmd_ tables with the same names. It's enough if the end user just types searches for the tag bashrc, and sourcing.
 
 
 <br>
