@@ -8,6 +8,8 @@ The purpose of this application is to tag anything with a _label_ and, use it to
 * Add a _help-string_ or note with every option set.
 * Similar functionality, but different command base/ options can be tagged without having to remember them. 
 * Store the data in a file rather than a executable script. 
+* Save the script-data formatted as it is. 
+* Use this as a _clipboard_ to store the stdout/stderr for inspection or analysis elsewhere. 
 
 As an example:
 
