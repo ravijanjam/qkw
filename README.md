@@ -6,6 +6,20 @@ The purpose of this application is to tag anything with a _label_ and, use it to
 In different environments, say in linux flavors, one might be repeating the same functionality, but with a different set of commands. Having them stored in different spaces (tables) and carrying them to a different environment mean, one can save a lot of time without having to remember the commands. Additionally a help-string or a note can also be added along with the commands. So, switching environments for executing same functionality is simplified as well. 
 
 
+<br>
+
+
+The basic tables used to store the data
+
+*  _cmd_ :commands,scripts,etc with a note
+*  _dir_ :directory paths
+
+
+### CMD tables
+![](https://github.com/ravijanjam/qkw/blob/master/docs/cmd_table.png)
+
+### DIR tables
+![](https://github.com/ravijanjam/qkw/blob/master/docs/dir_table.png)
 
 **Manual**: Refer to the [[manual]](https://github.com/ravijanjam/qkw/blob/master/docs/qkw-manual.pdf) for all the available options, use cases and other information.  
 
@@ -148,16 +162,3 @@ runfast lss
 ```
 
 To learn more, on how to set up `macros` and other advanced use cases on how to use `qkw`, please consult the [[manual]](https://github.com/ravijanjam/qkw/blob/master/docs/qkw-manual.pdf)
-
-<hr>
-The basic tables used to store the data
-
-*  _cmd_ :commands,scripts,etc with a note
-*  _dir_ :directory paths
-
-
-### CMD tables
-![](https://github.com/ravijanjam/qkw/blob/master/docs/cmd_table.png)
-
-### DIR tables
-![](https://github.com/ravijanjam/qkw/blob/master/docs/dir_table.png)
