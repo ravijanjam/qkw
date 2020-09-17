@@ -73,6 +73,9 @@ qkw -v
 
 # list all tables
 qkw -T -lA 
+
+# man pages
+man qkw
 ```
 
 <hr>
