@@ -1,6 +1,8 @@
 # QKW 
 ## Generalizing aliasing to simplify navigation, and executing complex multi-line terminal command sequences¶
 
+**Instructions Manual**: [[manual]](https://github.com/ravijanjam/qkw/blob/master/docs/qkw-manual.pdf) 
+
 **Installation (Ubuntu/Debian)**
 
 ```bash
