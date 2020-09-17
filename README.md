@@ -11,9 +11,9 @@ The purpose of this application is to tag anything with a _label_ and, use it to
 * Save the script-data formatted as it is. 
 * Use this as a _clipboard_ to store the stdout/stderr for inspection or analysis elsewhere. 
 
-As an example:
+For example:
 
-In different environments, say in linux flavors, one might be repeating the same functionality, but with a different set of commands. Having them stored in different spaces (tables) and carrying them to a different environment one can save a lot of time without having to remember the commands. 
+In different environments, say in linux flavors, one might be repeating the same functionality, but with a different set of commands. Say there are two bashrc files, one for ubuntu, and one for opensuse labeled in two _cmd_ tables ubuntu, opensuse as just _bashrc_. Getting the data and sourcing should be straightforward. 
 
 
 <br>
