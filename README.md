@@ -125,8 +125,8 @@ To learn more, on how to set up `macros` and other advanced use cases on how to 
 
 <hr>
 The basic tables used to store the data
-* **cmd**:commands,scripts,etc with a note
-* **dir**:directory paths
+* _cmd_:commands,scripts,etc with a note
+* _dir_:directory paths
 
 ### CMD tables
 ![](https://github.com/ravijanjam/qkw/blob/master/docs/cmd_table.png)
