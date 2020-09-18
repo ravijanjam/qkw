@@ -95,6 +95,7 @@ The core option set
 * Get help
 ```bash
 qkw -h -T -cC
+qkw -h -D -lA
 ```
 
 * Create two tables
@@ -164,19 +165,19 @@ qkw -C -lA
 * Add the macros `cd2:navigation`, and `runfast:command execution` in your bashrc or it's equivalent
 
 ```bash
+# navigation
 cd2(){
   cd `qkw -gD $1`
 }
-```
 
-```bash
+# command execution
 runfast(){
   str=`qkw -gC $1`
   qkw -exec “${str}”
 }
 ```
 
-`source ~/.bashrc` for and start using the tags
+`source ~/.bashrc` and start using the tags
 
 ```bash
 # takes you to directory /u/v/w/x
