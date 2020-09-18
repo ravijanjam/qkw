@@ -146,6 +146,7 @@ qkw -gettemplate cmdinput.data
 qkw -C -if cmdinput.data
 
 # add modified data from file, should have existing label
+# helps when you have changes to make or reuse with variations
 qkw -C -mf cmdinput.data
 
 # delete the modified data from file, label should exist
