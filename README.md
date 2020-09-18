@@ -145,7 +145,7 @@ qkw -gettemplate cmdinput.data
 # write to the database freshly
 qkw -C -if cmdinput.data
 
-# add modified data from file, should have existing content
+# add modified data from file, should have existing label
 qkw -C -mf cmdinput.data
 
 # delete the modified data from file, label should exist
