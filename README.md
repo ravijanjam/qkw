@@ -136,10 +136,21 @@ qkw -iC devpush:"git push origin dev"
 qkw -iC open:"vi /path/to/my/todo/list.txt"
 ```
 
-* Add commands via a file. Open the file and add some data in the file. For example, check `data/cmd-in.data`
+* Add commands via a file. Open the file and add some data in the file. 
 ```bash
-qkw -gettemplate cmdinput.data
+# template file with fields to populate information
+# label,value,expl fields
+qkw -gettemplate cmdinput.data 
+
+# write to the database freshly
 qkw -C -if cmdinput.data
+
+# add modified data from file, should have existing content
+qkw -C -mf cmdinput.data
+
+# delete the modified data from file, label should exist
+# rest of the fields are ignored
+qkw -C -df cmdinput.data
 ```
 
 * Check the added data
