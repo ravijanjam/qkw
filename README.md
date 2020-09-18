@@ -160,7 +160,7 @@ qkw -C -df cmdinput.data
 # NOTE: -gettemplate option doesn't exist for a table
 qkw -D -if dirinput.data
 qkw -D -mf dirinput.data
-qkw -D -mf dirinput.data
+qkw -D -df dirinput.data
 ```
 
 * Check the added data
