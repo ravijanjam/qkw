@@ -145,7 +145,10 @@ qkw -C -lA
 # label,value,expl fields
 qkw -gettemplate cmdinput.data 
 
-# write to the database freshly
+# write to a file when labels are provided
+qkw -C -if <L,L...,L> cmdinput.data # L:labels
+
+# write from file to the database
 qkw -C -if cmdinput.data
 
 # add modified data from file, should have existing label
@@ -162,6 +165,7 @@ qkw -C -df cmdinput.data
 qkw -D -if dirinput.data
 qkw -D -mf dirinput.data
 qkw -D -df dirinput.data
+qkw -D -wf <L,L...,L> dirinput.data # L:labels
 ```
 
 * Check the added data
