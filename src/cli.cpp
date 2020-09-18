@@ -1347,7 +1347,6 @@ int main(int argc, char *argv[]){
 					fmt::print("Table: \e[1m{}\e[0m\n", _tbl);
 					fmt::print("------\n");
 					qD->tblname = _tbl;
-					//for(auto _l : _vs) qD->search(_l, "L");
 					qD->search(_sk[0], "V");
 				}
 
@@ -1379,6 +1378,7 @@ int main(int argc, char *argv[]){
 					fmt::print("Table: \e[1m{}\e[0m\n", _tbl);
 					fmt::print("------\n");
 					qD->tblname = _tbl;
+					qD->search(_sk[0], "all");
 				}
 
 			}//c:condn
