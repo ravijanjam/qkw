@@ -20,9 +20,6 @@ bool init(string &sdb, utils &ut){
 
 int main(int argc, char *argv[]){
 
-	//setenv("QKW_CONFIG","/user_code/goto/scratchpad/pkg-4/config/qkw-config.yaml",1);
-	//setenv("QKW_CONFIG","/user_code/goto/scratchpad/pkg-4/config/qkw-config-fails.yaml",1);
-
 	utils *ut = new utils();
 	qkw *qN; dir *qD;
 	cmd *qC; 
