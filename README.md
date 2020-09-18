@@ -139,7 +139,7 @@ qkw -C -lA
 ```
 
 
-* Add commands via a file. Open the file and add some data in the file. 
+* _Bulk Changes_: adding/removing/modifying data via a file.
 ```bash
 # template file with fields to populate information
 # label,value,expl fields
@@ -155,6 +155,12 @@ qkw -C -mf cmdinput.data
 # delete the modified data from file, label should exist
 # rest of the fields are ignored
 qkw -C -df cmdinput.data
+
+# same operations work for dir tables, but with different format
+# NOTE: -gettemplate option doesn't exist for a table
+qkw -D -if dirinput.data
+qkw -D -mf dirinput.data
+qkw -D -mf dirinput.data
 ```
 
 * Check the added data
