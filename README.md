@@ -146,7 +146,7 @@ qkw -C -lA
 qkw -gettemplate cmdinput.data 
 
 # write to a file when labels are provided
-qkw -C -if <L,L...,L> cmdinput.data # L:labels
+qkw -C -if cmdoutput.data <L,L...,L> # L:labels
 
 # write from file to the database
 qkw -C -if cmdinput.data
@@ -165,7 +165,7 @@ qkw -C -df cmdinput.data
 qkw -D -if dirinput.data
 qkw -D -mf dirinput.data
 qkw -D -df dirinput.data
-qkw -D -wf <L,L...,L> dirinput.data # L:labels
+qkw -D -wf dirinput.data <L,L...,L>  # L:labels
 ```
 
 * Check the added data
