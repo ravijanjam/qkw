@@ -115,26 +115,28 @@ qkw -cfgfile
 
 * Visit a few directories and add labels
 ```bash
+# current directory information 
 qkw -addpath p1  # in dir /a/b/c
 qkw -addpath p2  # in dir x/y
 ```
 
-* Add directories manually
+* Add content to the tables manually as _label:value_ strings
 ```bash
+# directories, D tables
 qkw -iD m:"/u/v/w/x"
 qkw -iD n:"/q/r"
-```
 
-* Check the directories
-```bash
-qkw -D -lA
-```
-
-* Add commands manually
-```bash
+# commands, C tables
 qkw -iC devpush:"git push origin dev"
 qkw -iC open:"vi /path/to/my/todo/list.txt"
 ```
+
+* Check the added content D:directories, C:commands
+```bash
+qkw -D -lA
+qkw -C -lA
+```
+
 
 * Add commands via a file. Open the file and add some data in the file. 
 ```bash
