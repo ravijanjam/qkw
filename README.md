@@ -165,7 +165,7 @@ qkw -C -df cmdinput.data
 qkw -D -if dirinput.data
 qkw -D -mf dirinput.data
 qkw -D -df dirinput.data
-qkw -D -wf dirinput.data <L,L...,L>  # L:labels
+qkw -D -wf diroutput.data <L,L...,L>  # L:labels
 ```
 
 * Check the added data
