@@ -171,7 +171,7 @@ qkw -C -df cmdinput.data
 
 # same operations work for dir tables, but with different format
 # NOTE: -gettemplate option doesn't work for dir tables
-# since the format is "label:value", one per line
+# since the format is "label:directory_path", one per line
 qkw -D -if dirinput.data
 qkw -D -mf dirinput.data
 qkw -D -df dirinput.data
