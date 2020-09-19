@@ -116,8 +116,10 @@ qkw -T -lA
 qkw -cfgfile
 ```
 
-* Content retrieval
+* Content retrieval, gets data from the second column or V-column based on labels/tags
+
 ```bash
+# only one label taken
 qkw -gC <label> # C-tables
 qkw -gD <label> # D-tables
 ```
