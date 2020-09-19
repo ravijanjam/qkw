@@ -118,8 +118,8 @@ exec_cmd(cmd,cc)
 
 # check for the headers by compiling
 cc += 1
-f='default_headers.cpp'
-o='default_headers_check'
+f='./tests/default_headers.cpp'
+o='./tests_bin/default_headers_check'
 cmd = "g++ -o {} -I./include {}".format(o,f)
 exec_cmd(cmd,cc)
 
@@ -132,17 +132,17 @@ cmd = "rm -rf {}".format(o)
 exec_cmd(cmd,cc)
 
 cc += 1
-f='app_headers.cpp'
-o='app_header_check'
+f='./tests/app_headers.cpp'
+o='./tests_bin/app_header_check'
 cmd = "make app"
 exec_cmd(cmd,cc)
 
 cc += 1
-cmd = "./app_header_check"
+cmd = "./tests_bin/app_header_check"
 exec_cmd(cmd,cc)
 
 cc += 1
-cmd = "rm -rf app_header_check"
+cmd = "rm -rf ./tests_bin/app_header_check"
 exec_cmd(cmd,cc)
 
 cc += 1
