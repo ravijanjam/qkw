@@ -96,6 +96,9 @@ The core option set
 
 * Get help
 ```bash
+qkw -h <option_string>
+
+# Egs
 qkw -h -T -cC
 qkw -h -D -lA
 ```
