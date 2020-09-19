@@ -48,6 +48,11 @@ for line in sys.stdin:
 		break;
 
 
+cc+=1
+cmd = "mkdir -p ./tests_bin/"
+exec_cmd(cmd,cc)
+
+
 # created if doesn't exist
 cc+=1
 cmd = "mkdir -p ./build"
