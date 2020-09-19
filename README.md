@@ -134,7 +134,7 @@ qkw -addpath p1  # in dir /a/b/c
 qkw -addpath p2  # in dir x/y
 ```
 
-* Add content to the tables manually as _label:value_ strings
+* Add content to the tables manually as _label:directory_path_ strings
 ```bash
 # directories, D tables
 # labels can have any additional character to easily
