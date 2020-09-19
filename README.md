@@ -137,7 +137,10 @@ qkw -addpath p2  # in dir x/y
 * Add content to the tables manually as _label:value_ strings
 ```bash
 # directories, D tables
-qkw -iD m:"/u/v/w/x"
+# labels can have any additional character to easily
+# distinguish in case of jumping between two directories
+qkw -iD m.x:"/u/v/w/x"
+qkw -iD m.p:"/u/v/w/x/p"
 qkw -iD n:"/q/r"
 
 # commands, C tables
