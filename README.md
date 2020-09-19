@@ -116,6 +116,12 @@ qkw -T -lA
 qkw -cfgfile
 ```
 
+* Content retrieval
+```bash
+qkw -gC <label> # C-tables
+qkw -gD <label> # D-tables
+```
+
 * Visit a few directories and add labels
 ```bash
 # current directory information 
