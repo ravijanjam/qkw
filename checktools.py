@@ -2,10 +2,6 @@ import subprocess as sp
 import datetime
 import sys
 
-#cmd = "abc 2>1 /dev/null"
-#sp.run(cmd.split(' '))
-#sys.exit(1)
-
 cc = 0
 logfile = open('log.txt','a')
 ins = "\nChecks for dev libraries (fmt,sqlite3,yaml), and binaries (make,cmake,git,g++)\n"
@@ -16,31 +12,6 @@ ok = False
 def genTS(): return datetime.datetime.now().replace(tzinfo=datetime.timezone.utc)
 
 print(genTS())
-
-# (make,gcc,g++,git) check
-# msg: <name> not found
-
-# g++ checkheaders.cpp
-# msg: check log file for the section 
-
-# mkdir -p ./build
-
-# download (fmt,sqlite3,pkg-config)
-# check all versions, if exists or after exists
-
-# once ready, ask the user to install, point to directory
-# resume the script
-
-
-# libraries ready
-# make build
-# make install
-# make clean
-
-# post installation reporting
-# qkw ready
-# show version
-
 
 def exec_cmd(_cmd,cc):
 
