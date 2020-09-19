@@ -10,6 +10,7 @@ The purpose of this application is to tag anything with a _label_ and, use it to
 * Store the data in a file rather than a executable script, and also search for the content. 
 * Save/retrieve the script formatted as a string, as it is to/from a file. 
 * Use this as a _clipboard_ to store the stdout/stderr for inspection or analysis. 
+* Easily share the functional blocks of your _application like initialization, settings, etc_ by just sharing the database, where user is abstracted away from the details and focuses on using the functionality by mere execution of the tags.
 
 
 For example:
