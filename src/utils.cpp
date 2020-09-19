@@ -82,7 +82,7 @@ VMSS_t utils::fileparser(string &fN, string opt){
 				if(tp == opt | tp == "value" | tp == "expl"){
 
 					this->rmtrailnewline(rs);
-					if(lb=="value"|lb=="expl") rs = regex_replace(rs,RC,"\\\"\"");
+					if(lb=="value" or lb=="expl") rs = regex_replace(rs,RC,"\\\"\"");
 					md[lb] = rs;
 					lb = tp;
 					rs = "";

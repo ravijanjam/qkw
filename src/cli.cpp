@@ -1163,6 +1163,28 @@ int main(int argc, char *argv[]){
 		}
 
 
+		if( ut->matchopts(cs, "mVC") 
+		    ){
+
+			if(hf == 1) {
+				hl->getstr("mVC");
+				break;
+			}
+		
+
+			if( nl > 1 ){
+				l++;
+				_sk[0] = argv[l];
+				qC->modifyvalue(_sk[0],"L");
+			}
+			else{
+				fmt::print("\e[1mNOTE: [{}] argument required\e[0m\n",1);
+			}
+			cs.clear();
+		}
+
+
+
 		if( ut->matchopts(cs, "mVrD") 
 		    ){
 
