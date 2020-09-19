@@ -418,7 +418,6 @@ void cmd::insfromfile(string &fN, string opt){
 		if(not emptystr(_data[_str])){
 
 			_qS = fmt::format(mqc["Q6.1"],this->tblname,_mll[_str],_data[_str],_mll["label"],_key);
-			cout << "cmd.ins: " << _qS << endl;
 			this->cproc(_qS,this->fn);
 			sd->n = -1;
 
