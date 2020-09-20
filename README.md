@@ -199,8 +199,7 @@ cd2(){
 
 # command execution
 runfast(){
-  str=`qkw -gC $1`
-  qkw -exec “${str}”
+  eval `qkw -gC $1`
 }
 ```
 
