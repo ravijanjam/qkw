@@ -165,7 +165,7 @@ qkw -gettemplate cmdinput.data
 qkw -C -if cmdoutput.data <L,L...,L> # L:labels
 
 # write from file to the database
-qkw -C -if cmdinput.data
+qkw -C -wf cmdinput.data
 
 # add modified data from file, should have existing label
 # helps when you have changes to make or reuse with variations
