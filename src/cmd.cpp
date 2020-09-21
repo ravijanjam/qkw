@@ -193,6 +193,7 @@ int cmd::fn(void *data, int argc, char **argv, char **azColName){
 				_azc = sd->null2str(azColName[i]);
 				_val = sd->null2str(argv[i]);
 
+				_val = regex_replace(_val,regex("\\\\\""),"\"");
 				if( _azc == "rowid" and sd->ri == 1 ){
 				    
 				    sd->fs << "id:\n";
