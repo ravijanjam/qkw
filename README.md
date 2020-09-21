@@ -1,5 +1,5 @@
 # QKW | Generalizing Aliazing
-## Simplify navigation, executing complex multi-line terminal command sequences, annotate, add help-strings, etc¶
+## Simplify navigation, execute complex multi-line terminal command sequences, annotate, add help-strings, etc¶
 
 The purpose of this application is to tag anything with a _label_ and, use it to retrieve the associated data for other applications. Some of qkw's use cases:
 
