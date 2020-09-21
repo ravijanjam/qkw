@@ -35,6 +35,8 @@ The basic tables used to store the data
 
 **Manual**: Refer to the [[manual]](https://github.com/ravijanjam/qkw/blob/master/docs/qkw-manual.pdf) for all the available options, use cases and other information.  
 
+[**Quick Start**](https://github.com/ravijanjam/qkw/wiki/Workflows)
+
 **Installation (Ubuntu/Debian)**
 
 ```bash
@@ -82,4 +84,3 @@ man qkw
 
 <hr>
 
-### [[Quick Start]](https://github.com/ravijanjam/qkw/wiki/Workflows)
