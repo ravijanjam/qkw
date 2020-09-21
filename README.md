@@ -155,7 +155,7 @@ qkw -C -lA
 ```
 
 
-* _Bulk Changes_: adding/removing/modifying data via a file.
+* _Bulk Changes_: export/import/removing/modifying data via a file.
 ```bash
 # template file with fields to populate information
 # label,value,expl fields
