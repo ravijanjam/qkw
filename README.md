@@ -33,7 +33,7 @@ The basic tables used to store the data
 ### DIR tables
 ![](https://github.com/ravijanjam/qkw/blob/master/docs/dir_table.png)
 
-**Manual**: Refer to the [[manual]](https://github.com/ravijanjam/qkw/blob/master/docs/qkw-manual.pdf) for all the available options, use cases and other information.  
+[**Manual**](https://github.com/ravijanjam/qkw/blob/master/docs/qkw-manual.pdf) contains information about use cases, and all the available options.
 
 [**Quick Start**](https://github.com/ravijanjam/qkw/wiki/Workflows)
 
