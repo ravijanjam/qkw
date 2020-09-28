@@ -15,7 +15,7 @@ The purpose of this application is to tag anything with a _label_ and, use it to
 
 For example:
 
-> In different environments, say in linux flavors, one might be _**repeating identical functionality with the same tag in different environments**_. One of the first things a user would like to do in linux is to have their _bashrc_ configured with their personal set of commands. Using this tool it becomes easy, by saving under two C-tables, say one for _ubuntu_, and one for _opensuse_. It's enough if the end user just retrieves and executes(sources) the tag bashrc.
+> In different environments, say in linux flavors, one might be _**repeating identical functionality in different environments**_. As an example, one of the first things a user would like to do is to have their _bashrc_ configured with their personal set of commands. Using this tool it becomes easy, by saving under two C-tables, say one for _ubuntu_, and one for _opensuse_. It's enough if the end user just retrieves and executes(sources) the tag bashrc.
 
 
 <br>
