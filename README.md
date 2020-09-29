@@ -43,7 +43,7 @@ The basic tables used to store the data
 
 apt-get update
 apt-get install -y git gcc g++ pkg-config cmake make
-apt-get install -y libsqlite3-dev
+apt-get install -y libsqlite3-dev libyaml-cpp-dev
 ```
 
 * To keep building simple, a python script is set up which checks for requirements _(fmt,sqlite3,yaml)_, and a sanity check for required headers. Any errors will be in writen to the log file
