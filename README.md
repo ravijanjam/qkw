@@ -3,6 +3,8 @@
 
 The purpose of this application is to tag anything with a _label_ and, use it to retrieve the associated data for other applications. Some of qkw's use cases:
 
+* Assign tags/labels to programmable/non-programmable structures. 
+* Traverse directories with easy to remember labels/tags. 
 * Replace shell/bash aliasing using qkw's dynamic tagging.
 * Quickly test a set of commands with different options in different environments. 
 * Rapidly create variations, and save them with a versioned tag. 
