@@ -24,18 +24,6 @@ For example:
 <br>
 
 
-The basic tables used to store the data
-
-*  _cmd_ :commands,scripts,etc with a note
-*  _dir_ :directory paths
-
-
-### CMD tables
-![](https://github.com/ravijanjam/qkw/blob/master/docs/cmd_table.png)
-
-### DIR tables
-![](https://github.com/ravijanjam/qkw/blob/master/docs/dir_table.png)
-
 [**Manual**](https://github.com/ravijanjam/qkw/blob/master/docs/qkw-manual.pdf) contains information about use cases, and all the available options.
 
 [**QuickStart**](https://github.com/ravijanjam/qkw/wiki/QuickStart) guide helps you get started with using the basic commands.
@@ -87,3 +75,15 @@ man qkw
 
 <hr>
 
+
+The basic tables used to store the data
+
+*  _cmd_ :commands,scripts,etc with a note
+*  _dir_ :directory paths
+
+
+### CMD tables
+![](https://github.com/ravijanjam/qkw/blob/master/docs/cmd_table.png)
+
+### DIR tables
+![](https://github.com/ravijanjam/qkw/blob/master/docs/dir_table.png)
