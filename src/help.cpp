@@ -200,7 +200,7 @@ void help::getstr(string opt){
 	}
 
 
-	if( opt == "ipath" ){
+	if( opt == "addpath" ){
 		sc = fmt::format("qkw -{0} <label>\n", opt);
 		sc = fmt::format("\e[1m{}\e[0m",sc);
 	}
