@@ -3,6 +3,13 @@
 
 The purpose of this application is to tag anything with a _label_ and, use it to retrieve the associated data for other applications. Some of qkw's use cases:
 
+```
+	<label> : 
+		<data>
+
+		<help-string/annotation>
+```
+
 * Assign tags/labels to programmable/non-programmable structures. 
 * Navigate directories with easy to remember labels/tags. 
 * Replace shell/bash aliasing using qkw's dynamic tagging.
