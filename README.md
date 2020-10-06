@@ -37,6 +37,12 @@ For example:
 
 **Installation (Ubuntu/Debian)**
 
+* Clone the repo
+```bash
+git clone git@github.com:ravijanjam/qkw.git
+```
+
+* Install the dependencies
 ```bash
 
 apt-get update
