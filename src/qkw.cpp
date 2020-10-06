@@ -3,14 +3,19 @@
 
 using namespace std;
 
-qkw::~qkw(){}
+qkw::~qkw(){
+	sqlite3_close(this->sdb);
+}
 
 qkw::qkw(string &dbn):utils(){
 
 	fileexists(dbn);
 	this->dbname = dbn;
 
-        sqlite3_open(dbn.c_str(), &(this->sdb));
+        if(sqlite3_open(dbn.c_str(), &(this->sdb))){
+		fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(this->sdb));
+		sqlite3_close(this->sdb);
+	}//c:condn
 
 	sd = new SD;
 	sd->cq = this;

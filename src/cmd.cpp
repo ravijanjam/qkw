@@ -2,7 +2,7 @@
 
 using namespace std;
 
-cmd::~cmd(){}
+cmd::~cmd(){sqlite3_close(this->sdb);}
 
 cmd::cmd(string &dbn):qkw(dbn){
 };

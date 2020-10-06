@@ -2,7 +2,9 @@
 
 using namespace std;
 
-dir::~dir(){}
+dir::~dir(){
+	sqlite3_close(this->sdb);
+}
 
 dir::dir(string &dbn):qkw(dbn){
 };
