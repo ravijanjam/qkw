@@ -39,7 +39,7 @@ For example:
 
 * Clone the repo
 ```bash
-git clone git@github.com:ravijanjam/qkw.git
+git clone https://github.com/ravijanjam/qkw.git
 ```
 
 * Install the dependencies
