@@ -40,6 +40,7 @@ For example:
 * Clone the repo
 ```bash
 git clone https://github.com/ravijanjam/qkw.git
+cd qkw
 ```
 
 * Install the dependencies
