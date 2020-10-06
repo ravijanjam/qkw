@@ -11,7 +11,7 @@ The purpose of this application is to tag anything with a _label_ and, use it to
 ```
 
 * Assign tags/labels to programmable/non-programmable structures. 
-* Navigate directories with easy to remember labels/tags. 
+* Navigate directories or bookmark key:value pairs with easy to search and remember labels/tags. 
 * Replace shell/bash aliasing using qkw's dynamic tagging.
 * Quickly test a set of commands with different options in different environments. 
 * Rapidly create variations, and save them with a versioned tag. 
