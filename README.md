@@ -7,7 +7,7 @@ The purpose of this application is to tag anything with a _label_ and, use it to
 	<label> : 
 		<data>
 
-		<help-string/annotation>
+		<help-string,annotation,stdout,etc>
 ```
 
 * Assign tags/labels to programmable/non-programmable structures. 
