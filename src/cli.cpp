@@ -2165,5 +2165,10 @@ int main(int argc, char *argv[]){
 
 	}//c:loop
 
+	delete ut;
+	delete qC;
+	delete qD;
+	delete hl;
+
 	return 0;
 }//c:main
