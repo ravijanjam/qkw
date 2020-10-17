@@ -9,16 +9,6 @@ using namespace std;
 
 #define QKW_VERSION "1.0"
 
-/*
-// retrieves data from yaml by yaml string
-bool init(string &sdb, utils &ut){
-	int ir;
-	ir = ut.cfggetdata(sdb);
-	if( ir == 0 ) return true;
-	else return false;
-}//c:func
-*/
-
 template<typename T>
 T* init(T *tc, utils *ut, US_t &vstbl, 
         string &sdb, string &tbl, string &sc){
