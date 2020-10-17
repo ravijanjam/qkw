@@ -121,6 +121,7 @@ int main(int argc, char *argv[]){
 
 			if(hf == 1) {
 				hl->getstr(opt);
+				break;
 			}
 
 
