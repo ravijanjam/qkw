@@ -206,6 +206,12 @@ void help::getstr(string opt){
 	}
 
 
+	if( opt == "setcfg" ){
+		sc = fmt::format("qkw -{0} <cfgfile>\n", opt);
+		sc = fmt::format("\e[1m{}\e[0m",sc);
+	}
+
+
 	if( opt == "lappend+r" ){
 		sc = fmt::format("qkw -{0} <regex> <replacement>\n", opt);
 		sc = fmt::format("\e[1m{}\e[0m",sc);

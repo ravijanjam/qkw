@@ -9,6 +9,7 @@ using namespace std;
 
 #define QKW_VERSION "1.0"
 
+/*
 // retrieves data from yaml by yaml string
 bool init(string &sdb, utils &ut){
 	int ir;
@@ -16,13 +17,53 @@ bool init(string &sdb, utils &ut){
 	if( ir == 0 ) return true;
 	else return false;
 }//c:func
+*/
 
+template<typename T>
+T* init(T *tc, utils *ut, US_t &vstbl, 
+        string &sdb, string &tbl, string &sc){
+
+	YN_t yn;
+	string opt;
+	int ird, irc, irt, ir;
+
+	irc = ut->cfggetdata(sdb);
+	irt = ut->cfggetdata(tbl);
+
+	if ( irc == 0 and irt == 0 ){
+		tc = new T(sdb);
+		tc->tblname = tbl;
+	}//c:condn
+	else{
+		exit(1);
+	}//c:condn
+
+	if (ut->cfggetdata(sc) == 0){
+
+		VS_t _vs;
+		if(ut->splitstr(sc,_vs,',')) {
+			for(auto _t : _vs){
+				vstbl.insert(ut->rmspaces(_t));
+			}
+		}//c:if
+		else{
+			fmt::print("\e[31mERROR: {}\e[1m",sc);
+		}
+		
+	}//c:condn
+
+	return tc;
+}//c:func
 
 int main(int argc, char *argv[]){
 
 	utils *ut = new utils();
-	qkw *qN; dir *qD;
-	cmd *qC; 
+	qkw *qN; dir *qD; cmd *qC; 
+
+	help *hl = new help();
+
+	string _sk[3];
+	int l=0, nl, hf=0;
 
 	YN_t yn;
 	string sdb, tbl, opt, sc;
@@ -30,66 +71,19 @@ int main(int argc, char *argv[]){
 
 	MUSS_t vstbl;
 
+	CS_t cs;
+	cs.clear();
+
 	sdb = "cmd.search.db";
-	irc = ut->cfggetdata(sdb);
-
 	tbl = "cmd.insert.table";
-	irt = ut->cfggetdata(tbl);
-
-	if ( irc == 0 and irt == 0 ){
-		qC = new cmd(sdb);
-		qC->tblname = tbl;
-	}//c:condn
-	else{
-		exit(1);
-	}//c:condn
-
 	sc = "cmd.search.table";
-	if (ut->cfggetdata(sc) == 0){
-
-		VS_t _vs;
-		if(ut->splitstr(sc,_vs,',')) {
-			for(auto _t : _vs){
-				vstbl["C"].insert(ut->rmspaces(_t));
-			}
-		}//c:if
-		else{
-			fmt::print("\e[31mERROR: cmd.search.table\e[1m");
-		}
-		
-	}//c:condn
+	qC = init<cmd>(qC,ut,vstbl["C"],sdb,tbl,sc);
 
 
 	sdb = "dir.search.db";
-	ird = ut->cfggetdata(sdb);
-
 	tbl = "dir.insert.table";
-	irt = ut->cfggetdata(tbl);
-
-	if ( ird == 0 and irt == 0 ){
-		qD = new dir(sdb);
-		qD->tblname = tbl;
-	}//c:condn
-	else{
-		//fmt::print("\e[31mERROR: {}\e[0m","configuration file related");
-		return 1;
-	}//c:condn
-
-
 	sc = "dir.search.table";
-	if ( ut->cfggetdata(sc) == 0 ){
-
-		VS_t _vs;
-		if(ut->splitstr(sc,_vs,',')) {
-			for(auto _t : _vs){
-				vstbl["D"].insert(ut->rmspaces(_t));
-			}
-		}//c:if
-		else{
-			fmt::print("\e[31mERROR: cmd.search.table\e[1m");
-		}
-		
-	}//c:condn
+	qD = init<dir>(qD,ut,vstbl["D"],sdb,tbl,sc);
 
 
 	if (irc != 0 and ird != 0){
@@ -103,12 +97,7 @@ int main(int argc, char *argv[]){
 	}sld;
 
 
-	CS_t cs;
-	cs.clear();
 
-	string _sk[3];
-	int nl, hf=0;
-	help *hl = new help();
 
 	if(argc == 1){
 
@@ -116,7 +105,7 @@ int main(int argc, char *argv[]){
 		fmt::print("To get help: \e[1mqkw -h <option_string>\e[0m");
 	}
 
-	for(int l=1; l < argc; l++){
+	for( ; l < argc; l++ ){
 
 		opt = (string)argv[l];
 		ir = ut->optstr(opt);
@@ -136,6 +125,47 @@ int main(int argc, char *argv[]){
 			cs.clear();
 			continue;
 		}
+
+
+		if( opt == "setcfg" ){
+
+			if(hf == 1) {
+				hl->getstr(opt);
+			}
+
+
+			if(nl > 1){
+
+				l++;
+				if(setenv(ut->envtag,argv[l],1) == 0){
+
+					ut->cfgchk();
+
+					sdb = "cmd.search.db";
+					tbl = "cmd.insert.table";
+					sc = "cmd.search.table";
+					qC = init<cmd>(qC,ut,vstbl["C"],sdb,tbl,sc);
+
+
+					sdb = "dir.search.db";
+					tbl = "dir.insert.table";
+					sc = "dir.search.table";
+					qD = init<dir>(qD,ut,vstbl["D"],sdb,tbl,sc);
+
+					cout << "cfgfile: " << ut->cfgfile << endl;
+				}
+			}
+			else{
+				fmt::print("  \e[1m[{}] argument required\e[0m\n",1);
+			}
+
+			cs.clear();
+			continue;
+		
+		}
+
+
+
 
 		if (opt == "dbname"){
 
