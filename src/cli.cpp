@@ -89,9 +89,9 @@ int main(int argc, char *argv[]){
 	qiD = init<dir>(qiD,ut,vstbl["D"],sdb,tbl,0);
 
 
-	sdb = "dir.insert.db";
-	tbl = "dir.insert.table";
-	qsD = init<dir>(qsD,ut,vstbl["D"],sdb,tbl,0);
+	sdb = "dir.search.db";
+	tbl = "dir.search.table";
+	qsD = init<dir>(qsD,ut,vstbl["D"],sdb,tbl,1);
 
 
 	if(argc == 1){
