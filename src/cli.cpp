@@ -1504,7 +1504,7 @@ int main(int argc, char *argv[]){
 			for(auto _tbl : vstbl["D"]){
 
 				fmt::print("-------------------\n");
-				fmt::print("Data from the table: {}\n", _tbl);
+				fmt::print("Data from the table: [{}]\n", _tbl);
 				fmt::print("-------------------\n");
 				qsD->tblname = _tbl;
 				qsD->search(_sk[0], "V");
@@ -1532,7 +1532,7 @@ int main(int argc, char *argv[]){
 			for(auto _tbl : vstbl["D"]){
 
 				fmt::print("-------------------\n");
-				fmt::print("Data from the table: {}\n", _tbl);
+				fmt::print("Data from the table: [{}]\n", _tbl);
 				fmt::print("-------------------\n");
 				qsD->tblname = _tbl;
 				qsD->listlabels(_sk[0],"all");
@@ -1557,7 +1557,7 @@ int main(int argc, char *argv[]){
 			for(auto _tbl : vstbl["C"]){
 
 				fmt::print("-------------------\n");
-				fmt::print("Data from the table: {}\n", _tbl);
+				fmt::print("Data from the table: [{}]\n", _tbl);
 				fmt::print("-------------------\n");
 				qsC->tblname = _tbl;
 				qsC->getall();
@@ -1959,7 +1959,7 @@ int main(int argc, char *argv[]){
 			for(auto _tbl : vstbl["C"]){
 
 				fmt::print("-------------------\n");
-				fmt::print("Data from the table: {}\n", _tbl);
+				fmt::print("Data from the table: [{}]\n", _tbl);
 				fmt::print("-------------------\n");
 				qsC->tblname = _tbl;
 				qsC->search(_sk[0], "L");
@@ -1991,7 +1991,7 @@ int main(int argc, char *argv[]){
 			for(auto _tbl : vstbl["C"]){
 
 				fmt::print("-------------------\n");
-				fmt::print("Data from the table: {}\n", _tbl);
+				fmt::print("Data from the table: [{}]\n", _tbl);
 				fmt::print("-------------------\n");
 
 				qsC->tblname = _tbl;
@@ -2023,7 +2023,7 @@ int main(int argc, char *argv[]){
 				for(auto _tbl : vstbl["C"]){
 
 					fmt::print("-------------------\n");
-					fmt::print("Data from the table: {}\n", _tbl);
+					fmt::print("Data from the table: [{}]\n", _tbl);
 					fmt::print("-------------------\n");
 
 					qsC->tblname = _tbl;
@@ -2057,7 +2057,7 @@ int main(int argc, char *argv[]){
 				for(auto _tbl : vstbl["C"]){
 
 					fmt::print("-------------------\n");
-					fmt::print("Data from the table: {}\n", _tbl);
+					fmt::print("Data from the table: [{}]\n", _tbl);
 					fmt::print("-------------------\n");
 
 					qsC->tblname = _tbl;
