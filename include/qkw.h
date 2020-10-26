@@ -51,6 +51,7 @@ class qkw : public utils{
 		void insertdatafrmfile(string&);
 		void mergetbls(string&,string&);
 		int getschema(string &tbl);
+		int objcount=0;
 
 
 		static int fn(void *data, int argc, char **argv, char **azColName);
