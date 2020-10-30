@@ -100,6 +100,7 @@ int main(int argc, char *argv[]){
 		fmt::print("To get help: \e[1mqkw -h <option_string>\e[0m");
 	}
 
+
 	for( ; l < argc; l++ ){
 
 		opt = (string)argv[l];
@@ -307,6 +308,12 @@ int main(int argc, char *argv[]){
 
 				qiD->tblname = _sk[0];
 				qiC->tblname = _sk[0];
+
+				vstbl["C"].clear();
+				vstbl["C"].insert(_sk[0]);
+
+				vstbl["D"].clear();
+				vstbl["D"].insert(_sk[0]);
 			}
 			else{
 				fmt::print("  \e[1m[{}] argument required\e[0m\n",1);
@@ -329,6 +336,9 @@ int main(int argc, char *argv[]){
 
 				qiC = new cmd(_sk[0]);
 				qiD = new dir(_sk[0]);
+
+				qsC = qiC;
+				qsD = qiD;
 			}
 			else{
 				fmt::print("  \e[1m[{}] argument required\e[0m\n",1);
