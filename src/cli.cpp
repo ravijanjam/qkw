@@ -96,8 +96,11 @@ int main(int argc, char *argv[]){
 
 	if(argc == 1){
 
-		fmt::print("\e[1mqkw version {}\e[0m\n",QKW_VERSION);
-		fmt::print("To get help: \e[1mqkw -h <option_string>\e[0m");
+		fmt::print("  --------------------------------------------\n");
+		fmt::print("\e[1m  qkw version {}\e[0m\n",QKW_VERSION);
+		fmt::print("  To get help: \e[1mqkw -h <option_string>\e[0m\n");
+		fmt::print("  (or) the manual pages: \e[1mman qkw\e[0m\n");
+		fmt::print("  --------------------------------------------\n");
 	}
 
 
