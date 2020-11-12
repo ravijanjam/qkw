@@ -12,11 +12,13 @@ The purpose of this application is to tag anything with a _label_ and, use it to
 
 * Assign tags/labels to programmable/non-programmable structures. 
 * Navigate directories or bookmark key:value pairs with easy to search and remember labels/tags. 
-* Replace shell/bash aliasing using qkw's dynamic tagging.
-* Quickly test a set of commands with different options in different environments. 
-* _DevOps automation_ : Rapidly create variations, and save them with a versioned tag. 
+* _DevOps automation_ : 
+	* Rapidly create variations, and save them with a versioned tag. 
+	* Quickly test a set of commands with different options in different environments. 
+	* Replace shell/bash aliasing using qkw's dynamic tagging.
+	* Similar functionality, but different command base/ options can be tagged with identical tags and executed.
+
 * Add a _help-string_ or _note_ with the associated data.
-* Similar functionality, but different command base/ options can be tagged with identical tags and executed.
 * Store/search the data in a file rather than a executable script.
 * Save/retrieve the script formatted as a string, as it is to/from a file. 
 * Use this as a _clipboard_ to store the stdout/stderr for inspection or analysis. 
