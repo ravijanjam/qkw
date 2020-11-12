@@ -10,6 +10,8 @@ The purpose of this application is to tag anything with a _label_ and, use it to
 		<help-string,annotation,stdout,etc>
 ```
 
+## Features
+
 * Assign tags/labels to programmable/non-programmable structures. 
 * Navigate directories or bookmark key:value pairs with easy to search and remember labels/tags. 
 * _DevOps automation_ : 
@@ -17,7 +19,6 @@ The purpose of this application is to tag anything with a _label_ and, use it to
 	* Quickly test a set of commands with different options in different environments. 
 	* Replace shell/bash aliasing using qkw's dynamic tagging.
 	* Similar functionality, but different command base/ options can be tagged with identical tags and executed.
-
 * Add a _help-string_ or _note_ with the associated data.
 * Store/search the data in a file rather than a executable script.
 * Save/retrieve the script formatted as a string, as it is to/from a file. 
