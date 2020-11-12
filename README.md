@@ -40,7 +40,8 @@ For example:
 
 [**QuickStart**](https://github.com/ravijanjam/qkw/wiki/QuickStart) guide helps you get started with using the basic commands.
 
-**Installation (Ubuntu/Debian)**
+
+## Installation (Ubuntu/Debian)
 
 * Clone the repo
 ```bash
