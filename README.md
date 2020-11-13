@@ -15,8 +15,7 @@ The purpose of this application is to tag anything with a _label_ and, use it to
 * **Directory navigation**: Use the bookmarked _keys_ to directly visit a specific directory
 * Assign tags/labels to programmable/non-programmable structures. 
 * Add a _help-string_ or _note_ with the associated data.
-* Store/search the data in a file rather than a executable script.
-* Save/retrieve the script formatted as a string, as it is to/from a file. 
+* Store, retrieve and search the data in a file rather than a executable script, formatted as a string.
 * Use this as a _clipboard_ to store the stdout/stderr for inspection or analysis. 
 * Easily share the functional blocks of your _application like initialization, settings, etc_ by just sharing the database, where user is abstracted away from the details and focuses on using the functionality by mere execution of the tags.
 * **DevOps automation** : 
