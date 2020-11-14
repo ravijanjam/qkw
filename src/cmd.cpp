@@ -471,6 +471,13 @@ int cmd::getexpl(string &dt, string sd){
 	
 }
 
+void cmd::listlabels(string &st, string opt){
+
+	if(opt == "LA" ){
+		qkw::listlabels(st,opt);
+	}
+
+}//c:func
 
 
 void cmd::getall(){

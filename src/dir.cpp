@@ -16,12 +16,12 @@ int dir::fn(void *data, int argc, char **argv, char **azColName){
 
 	switch(sf->n){
 
-
 		case 5:
 		{
 
 		    string _azc,_val;
 		    for(int i=0; i < argc; i++){
+
 		        _azc = sf->null2str(azColName[i]);
 		        _val = sf->null2str(argv[i]);
 			if(_azc == "L") {
@@ -499,6 +499,11 @@ void dir::listlabels(string &st, string opt){
 		this->cproc(qS,this->fn);
 		sd->n = -1;
 		}
+	}
+
+
+	if(opt == "LA" ){
+		qkw::listlabels(st,opt);
 	}
 
 

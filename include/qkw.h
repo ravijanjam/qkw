@@ -43,6 +43,7 @@ class qkw : public utils{
 		void listtblsbytype();
 		void getlabel(string&,string);
 		void gettblcontent(string&, string&); 
+		void listlabels(string&,string);
 		void modifylabel(string&,string);
 		void cleartbls(string&);
 		void delentries(string&,string type = "L");
@@ -90,6 +91,7 @@ class qkw : public utils{
 			{"Q26.1","SELECT sql FROM sqlite_master where name in ('{}')"},
 			{"Q27","INSERT INTO {} {} SELECT * FROM (SELECT * FROM {} UNION SELECT * FROM {})"},
 			{"Q28","SELECT name FROM PRAGMA_TABLE_INFO('{}')"},
+			{"Q29","SELECT rowid,L FROM {} order by rowid"},
 		};
 
 

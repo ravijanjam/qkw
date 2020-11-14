@@ -4,6 +4,17 @@ utils::utils(){
 	this->cfgchk();
 }
 
+
+
+string utils::normalizegaps(string &s, int d, string _ts){
+
+	int n = d - s.size();
+	for(int i=0; i < n; i++) _ts += " ";
+	return _ts;
+
+}//c:func
+
+
 bool utils::cstr2qstr(string &ss){
 
 	VS_t vs;

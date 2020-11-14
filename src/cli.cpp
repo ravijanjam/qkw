@@ -60,6 +60,7 @@ int main(int argc, char *argv[]){
 	utils *ut = new utils();
 	dir *qiD; cmd *qiC; 
 	dir *qsD; cmd *qsC; 
+	qkw *qi; cmd *qs; 
 
 	help *hl = new help();
 
@@ -749,7 +750,6 @@ int main(int argc, char *argv[]){
 		}
 
 
-		// insert LV data
 		if(ut->matchopts(cs, "lDA")){
 
 			if(hf == 1) {
@@ -764,7 +764,20 @@ int main(int argc, char *argv[]){
 		}
 
 
-		// insert LV data
+		if(ut->matchopts(cs, "lLDA")){
+
+			if(hf == 1) {
+				hl->getstr("lLDA");
+				break;
+			}
+		
+
+			_sk[0] = "";
+			qiD->listlabels(_sk[0],"LA");
+			cs.clear();
+		}
+
+
 		if(ut->matchopts(cs, "lDrA")){
 
 
@@ -1598,6 +1611,20 @@ int main(int argc, char *argv[]){
 			}
 		
 			qiC->getall();
+			cs.clear();
+		}
+
+
+		if( ut->matchopts(cs, "lCLA"))
+		{
+
+
+			if(hf == 1) {
+				hl->getstr("lCLA");
+				break;
+			}
+		
+			qiC->listlabels(_sk[0],"LA");
 			cs.clear();
 		}
 

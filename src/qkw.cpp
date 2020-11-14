@@ -509,11 +509,60 @@ int qkw::renametbl(string &from, string &to){
 }
 
 
+void qkw::listlabels(string &st, string opt){
+
+	if(opt == "LA" ){
+		qS = fmt::format(mq["Q29"],this->tblname);
+		sd->n = 11;
+		this->cproc(qS,this->fn);
+		fmt::print("\n\n---------------------");
+		fmt::print("\nTotal #labels: {}",sd->cc/2);
+		fmt::print("\n---------------------\n");
+		sd->cc = 0;
+		sd->n = -1;
+	}
+}//c:func
+
+
 int qkw::fn(void *data, int argc, char **argv, char **azColName){
 
 	SD *sf = (SD*)data;
 
 	switch (sf->n){
+
+		case 11:
+		{
+
+		    string _azc,_val,ss;
+
+		    for(int cc=sf->cc,i=0,
+			    g1=1,g2=4,g3=25;
+			i < argc; 
+			i++,sf->cc++){
+
+		        _azc = sf->null2str(azColName[i]);
+		        _val = sf->null2str(argv[i]);
+
+			if(sf->cc%4 == 0) cout << "\n";
+
+			if(_azc == "rowid") {
+
+				fmt::print("|{}|{} ",_val,sf->cq->normalizegaps(_val,g2));
+
+			}
+			if(_azc == "L") {
+				fmt::print("{}{}",_val,sf->cq->normalizegaps(_val,g3));
+				ss = " ";
+				fmt::print("{}",sf->cq->normalizegaps(ss,g1));
+			}
+			
+
+		    }//c:loop
+
+		}
+		break;
+
+
 
 		case 10:
 		{
