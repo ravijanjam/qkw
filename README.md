@@ -16,7 +16,7 @@ The purpose of this application is to tag anything with a _label_ and, use it to
 
 ## Features
 
-* **Directory navigation**: Use the bookmarked _keys_ to directly visit a specific directory
+* **Directory navigation**: Use the bookmarked _keys_ to hop across directories
 * Assign tags/labels to programmable/non-programmable structures. 
 * Add a _help-string_ or _note_ with the associated data.
 * Store, retrieve and search the data in a file rather than a executable script, formatted as a string.
