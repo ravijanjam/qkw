@@ -52,6 +52,7 @@ install:
 	mkdir -p $(MAN_PATH) >> /dev/null 
 	cp $(INSTALL-DATA)/qkw.1.gz $(MAN_PATH)/
 	cp $(INSTALL-DATA)/userdata.db $(CFG_PATH)/
+	cp $(INSTALL-DATA)/qkw-config.yaml $(CFG_PATH)/
 	
 	@echo "--------------------------------------------------------"
 	@echo " Please set QKW_CONFIG to /etc/qkw-data/qkw-config.yaml"
