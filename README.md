@@ -33,7 +33,7 @@ For example:
 
 > In different linux flavors, one might be _**repeating identical functionality in different environments**_.  One of the first things a user would like to do is to have their _bashrc_ configured with their personal set of commands. 
 
-> Sourcing **bashrc.opensuse**, and **bashrc.ubuntu** would readily setup your environment. The data for OS specific environments are in the command tables.
+> Sourcing the tags *opensuse.bashrc**, and **ubuntu.bashrc** would readily setup your environment. The data for OS specific environments are in the command tables.
 
 
 <br>
