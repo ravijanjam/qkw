@@ -114,4 +114,5 @@ The basic tables used to store the data
 
 
 <br>
+
 _Category_ : CLI tools, productivity, bash utility, aliasing, labeling, sqlite, g++, commandline, documentation, docstring
