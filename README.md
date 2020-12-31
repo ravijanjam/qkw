@@ -111,3 +111,7 @@ The basic tables used to store the data
 
 ### DIR tables
 ![](https://github.com/ravijanjam/qkw/blob/master/docs/dir_table.png)
+
+
+<br>
+_Category_ : CLI tools, productivity, bash utility, aliasing, labeling, sqlite, g++, commandline, documentation, docstring
