@@ -1,0 +1,5 @@
+Dec 31, 2020
+------------
+
+* Adding data that has a column with -iC is incorrectly identified as a tag
+Eg: qkw -iC tag:"something a:b", the colon in quotes is the problem
