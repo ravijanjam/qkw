@@ -353,7 +353,7 @@ bool dir::getpath(string &s){
 
     char *d; 
     d = getcwd((char*)NULL,0);
-    cout << "current directory: " << d << endl;
+    cout << "added directory: " << d << endl;
     if (d != NULL){
 	    s = (string)d;
        return true; 
