@@ -9,20 +9,63 @@ using namespace std;
 
 #define QKW_VERSION "1.0"
 
-// retrieves data from yaml by yaml string
-bool init(string &sdb, utils &ut){
-	int ir;
-	ir = ut.cfggetdata(sdb);
-	if( ir == 0 ) return true;
-	else return false;
-}//c:func
+template<typename T>
+T* init(T *tc, utils *ut, US_t &vstbl, 
+        string &sdb, string &tbl, bool fg){
 
+	YN_t yn;
+	string opt;
+	int ird, irc, irt, ir;
+
+	irc = ut->cfggetdata(sdb);
+
+	if ( irc == 0 ){
+		tc = new T(sdb);
+	}//c:condn
+	else{
+		exit(1);
+	}//c:condn
+
+	if(fg == 0){
+		irt = ut->cfggetdata(tbl);
+
+		if ( irt == 0 ){
+			tc->tblname = tbl;
+		}//c:condn
+		else{
+			exit(1);
+		}//c:condn
+	}
+
+
+	if (ut->cfggetdata(tbl) == 0 and fg == 1){
+
+		VS_t _vs;
+		if(ut->splitstr(tbl,_vs,',')) {
+			for(auto _t : _vs){
+				vstbl.insert(ut->rmspaces(_t));
+			}
+		}//c:if
+		else{
+			fmt::print("\e[31mERROR: {}\e[1m",tbl);
+		}
+		
+	}//c:condn
+
+	return tc;
+}//c:func
 
 int main(int argc, char *argv[]){
 
 	utils *ut = new utils();
-	qkw *qN; dir *qD;
-	cmd *qC; 
+	dir *qiD; cmd *qiC; 
+	dir *qsD; cmd *qsC; 
+	qkw *qi; cmd *qs; 
+
+	help *hl = new help();
+
+	string _sk[3];
+	int l=0, nl, hf=0;
 
 	YN_t yn;
 	string sdb, tbl, opt, sc;
@@ -30,93 +73,39 @@ int main(int argc, char *argv[]){
 
 	MUSS_t vstbl;
 
-	sdb = "cmd.search.db";
-	irc = ut->cfggetdata(sdb);
-
-	tbl = "cmd.insert.table";
-	irt = ut->cfggetdata(tbl);
-
-	if ( irc == 0 and irt == 0 ){
-		qC = new cmd(sdb);
-		qC->tblname = tbl;
-	}//c:condn
-	else{
-		exit(1);
-	}//c:condn
-
-	sc = "cmd.search.table";
-	if (ut->cfggetdata(sc) == 0){
-
-		VS_t _vs;
-		if(ut->splitstr(sc,_vs,',')) {
-			for(auto _t : _vs){
-				vstbl["C"].insert(ut->rmspaces(_t));
-			}
-		}//c:if
-		else{
-			fmt::print("\e[31mERROR: cmd.search.table\e[1m");
-		}
-		
-	}//c:condn
-
-
-	sdb = "dir.search.db";
-	ird = ut->cfggetdata(sdb);
-
-	tbl = "dir.insert.table";
-	irt = ut->cfggetdata(tbl);
-
-	if ( ird == 0 and irt == 0 ){
-		qD = new dir(sdb);
-		qD->tblname = tbl;
-	}//c:condn
-	else{
-		//fmt::print("\e[31mERROR: {}\e[0m","configuration file related");
-		return 1;
-	}//c:condn
-
-
-	sc = "dir.search.table";
-	if ( ut->cfggetdata(sc) == 0 ){
-
-		VS_t _vs;
-		if(ut->splitstr(sc,_vs,',')) {
-			for(auto _t : _vs){
-				vstbl["D"].insert(ut->rmspaces(_t));
-			}
-		}//c:if
-		else{
-			fmt::print("\e[31mERROR: cmd.search.table\e[1m");
-		}
-		
-	}//c:condn
-
-
-	if (irc != 0 and ird != 0){
-		fmt::print("\e[31mERROR: {}\e[0m","insert, and search databases not initialized");
-	}//c:condn
-
-
-	struct LD{
-		string _sa[3];
-		MSS_t mf;
-	}sld;
-
-
 	CS_t cs;
 	cs.clear();
 
-	string _sk[3];
-	int nl, hf=0;
-	help *hl = new help();
+	sdb = "cmd.insert.db";
+	tbl = "cmd.insert.table";
+	qiC = init<cmd>(qiC,ut,vstbl["C"],sdb,tbl,0);
+
+	sdb = "cmd.search.db";
+	tbl = "cmd.search.table";
+	qsC = init<cmd>(qsC,ut,vstbl["C"],sdb,tbl,1);
+
+
+	sdb = "dir.insert.db";
+	tbl = "dir.insert.table";
+	qiD = init<dir>(qiD,ut,vstbl["D"],sdb,tbl,0);
+
+
+	sdb = "dir.search.db";
+	tbl = "dir.search.table";
+	qsD = init<dir>(qsD,ut,vstbl["D"],sdb,tbl,1);
+
 
 	if(argc == 1){
 
-		fmt::print("\e[1mqkw version {}\e[0m\n",QKW_VERSION);
-		fmt::print("To get help: \e[1mqkw -h <option_string>\e[0m");
+		fmt::print("  --------------------------------------------\n");
+		fmt::print("\e[1m  qkw version {}\e[0m\n",QKW_VERSION);
+		fmt::print("  To get help: \e[1mqkw -h <option_string>\e[0m\n");
+		fmt::print("  (or) the manual pages: \e[1mman qkw\e[0m\n");
+		fmt::print("  --------------------------------------------\n");
 	}
 
-	for(int l=1; l < argc; l++){
+
+	for( ; l < argc; l++ ){
 
 		opt = (string)argv[l];
 		ir = ut->optstr(opt);
@@ -137,6 +126,57 @@ int main(int argc, char *argv[]){
 			continue;
 		}
 
+
+		if( opt == "setcfg" ){
+
+			if(hf == 1) {
+				hl->getstr(opt);
+				break;
+			}
+
+
+			if(nl > 1){
+
+				l++;
+				if(setenv(ut->envtag,argv[l],1) == 0){
+
+					ut->cfgchk();
+
+
+					sdb = "cmd.insert.db";
+					tbl = "cmd.insert.table";
+					qiC = init<cmd>(qiC,ut,vstbl["C"],sdb,tbl,0);
+
+					sdb = "cmd.search.db";
+					tbl = "cmd.search.table";
+					qsC = init<cmd>(qsC,ut,vstbl["C"],sdb,tbl,1);
+
+
+					sdb = "dir.insert.db";
+					tbl = "dir.insert.table";
+					qiD = init<dir>(qiD,ut,vstbl["D"],sdb,tbl,0);
+
+
+					sdb = "dir.insert.db";
+					tbl = "dir.insert.table";
+					qsD = init<dir>(qsD,ut,vstbl["D"],sdb,tbl,0);
+
+
+
+				}
+			}
+			else{
+				fmt::print("  \e[1m[{}] argument required\e[0m\n",1);
+			}
+
+			cs.clear();
+			continue;
+		
+		}
+
+
+
+
 		if (opt == "dbname"){
 
 			if(hf == 1) {
@@ -144,8 +184,14 @@ int main(int argc, char *argv[]){
 				break;
 			}
 
-			fmt::print("cmd[C]: {}\n", qC->dbname);
-			fmt::print("dir[D]: {}\n", qD->dbname);
+			fmt::print("insert databases");
+			fmt::print("  cmd[C]: {}\n", qiC->dbname);
+			fmt::print("  dir[D]: {}\n", qiD->dbname);
+
+			fmt::print("search databases");
+			fmt::print("  cmd[C]: {}\n", qsC->dbname);
+			fmt::print("  dir[D]: {}\n", qsD->dbname);
+
 			continue;
 
 		}//c:condn
@@ -168,7 +214,7 @@ int main(int argc, char *argv[]){
 				l++;
 				_sk[1] = argv[l];
 
-				qC->copytbl(_sk[0],_sk[1]);
+				qiC->copytbl(_sk[0],_sk[1]);
 			}
 			else{
 				fmt::print("\e[1mNOTE: \e[33m-cpyTC <from> <to>\e[0m\n");
@@ -194,7 +240,7 @@ int main(int argc, char *argv[]){
 				l++;
 				_sk[1] = argv[l];
 
-				qC->mergetbls(_sk[0],_sk[1]);
+				qiC->mergetbls(_sk[0],_sk[1]);
 			}
 			else{
 				fmt::print("\e[1mNOTE: \e[33m-mergetbls <T,T...,T> <new_T>\e[0m\n");
@@ -219,7 +265,7 @@ int main(int argc, char *argv[]){
 				l++;
 				_sk[1] = argv[l];
 
-				qD->copytbl(_sk[0],_sk[1]);
+				qiD->copytbl(_sk[0],_sk[1]);
 			}
 			else{
 				fmt::print("\e[1mNOTE: \e[33m-cpyTD <from> <to>\e[0m\n");
@@ -242,7 +288,7 @@ int main(int argc, char *argv[]){
 				l++;
 				_sk[0] = argv[l];
 
-				qD->tblname = _sk[0];
+				qiD->tblname = _sk[0];
 			}
 			else{
 				fmt::print("  \e[1m[{}] argument required\e[0m\n",1);
@@ -264,8 +310,14 @@ int main(int argc, char *argv[]){
 				l++;
 				_sk[0] = argv[l];
 
-				qD->tblname = _sk[0];
-				qC->tblname = _sk[0];
+				qiD->tblname = _sk[0];
+				qiC->tblname = _sk[0];
+
+				vstbl["C"].clear();
+				vstbl["C"].insert(_sk[0]);
+
+				vstbl["D"].clear();
+				vstbl["D"].insert(_sk[0]);
 			}
 			else{
 				fmt::print("  \e[1m[{}] argument required\e[0m\n",1);
@@ -286,8 +338,11 @@ int main(int argc, char *argv[]){
 				l++;
 				_sk[0] = argv[l];
 
-				qC = new cmd(_sk[0]);
-				qD = new dir(_sk[0]);
+				qiC = new cmd(_sk[0]);
+				qiD = new dir(_sk[0]);
+
+				qsC = qiC;
+				qsD = qiD;
 			}
 			else{
 				fmt::print("  \e[1m[{}] argument required\e[0m\n",1);
@@ -313,8 +368,7 @@ int main(int argc, char *argv[]){
 				l++;
 				_sk[0] = argv[l];
 
-				qC->tblname = _sk[0];
-				//qC->createtbls(_sk[0]);
+				qiC->tblname = _sk[0];
 			}
 			else{
 				fmt::print("  \e[1m[{}] argument required\e[0m\n",1);
@@ -357,7 +411,7 @@ int main(int argc, char *argv[]){
 				_sk[0] = argv[l];
 
 
-				qC->gettemplate(_sk[0]);
+				qiC->gettemplate(_sk[0]);
 			}
 			else{
 				fmt::print("  \e[1m[{}] argument required\e[0m\n",1);
@@ -379,7 +433,7 @@ int main(int argc, char *argv[]){
 				l++;
 				_sk[0] = argv[l];
 
-				qC->cleartbls(_sk[0]);
+				qiC->cleartbls(_sk[0]);
 			}
 			else{
 				fmt::print("  \e[1m[{}] argument required\e[0m\n",1);
@@ -400,7 +454,7 @@ int main(int argc, char *argv[]){
 			if(nl > 1){
 			l++;
 			_sk[0] = argv[l];
-			qD->addpath(_sk[0]);
+			qiD->addpath(_sk[0]);
 			}
 			else{
 				fmt::print("\e[1mNOTE: \e[33m-addpath <label>\e[0m\n");
@@ -422,7 +476,7 @@ int main(int argc, char *argv[]){
 			if(nl > 1){
 			l++;
 			_sk[0] = argv[l];
-			qD->listtbls_v1(_sk[0],"one");
+			qiD->listtbls_v1(_sk[0],"one");
 			}
 			else{
 				fmt::print("  \e[1m[{}] argument required\e[0m\n",1);
@@ -445,7 +499,7 @@ int main(int argc, char *argv[]){
 
 			l++;
 			_sk[1] = argv[l];
-			qD->lappend(_sk[0],_sk[1],"r");
+			qiD->lappend(_sk[0],_sk[1],"r");
 			}
 			else{
 				fmt::print("\e[1mNOTE: \e[33m-lappend+r <r,r..r>\e[0m\n");
@@ -470,7 +524,7 @@ int main(int argc, char *argv[]){
 
 			l++;
 			_sk[1] = argv[l];
-			qD->lappend(_sk[0],_sk[1],"L");
+			qiD->lappend(_sk[0],_sk[1],"L");
 			}
 			else{
 				fmt::print("\e[1mNOTE: \e[33m-lappend <L,L..L>\e[0m\n");
@@ -495,7 +549,7 @@ int main(int argc, char *argv[]){
 				l++;
 				_sk[1] = argv[l];
 
-				qD->ltrim(_sk[0],_sk[1],"r");
+				qiD->ltrim(_sk[0],_sk[1],"r");
 			}
 			else{
 				fmt::print("\e[1mNOTE: \e[33m-ipath <label>\e[0m\n");
@@ -521,7 +575,7 @@ int main(int argc, char *argv[]){
 				l++;
 				_sk[1] = argv[l];
 
-				qD->ltrim(_sk[0],_sk[1],"L");
+				qiD->ltrim(_sk[0],_sk[1],"L");
 			}
 			else{
 				fmt::print("\e[1mNOTE: \e[33m-ltrim <regex> <L,L,>\e[0m\n");
@@ -553,7 +607,6 @@ int main(int argc, char *argv[]){
 		
 
 		if( ir==0 ){
-			//fmt::print("opt:{}, argc:{}, ir:{}, l:{}, nl:{}\n",opt,argc,ir,l,nl);
 			cs.merge(ut->splitstr2set(opt));
 		}
 
@@ -570,7 +623,7 @@ int main(int argc, char *argv[]){
 			_sk[1] = argv[l];
 
 			_sk[2] = "";
-			qD->editdata(_sk[0],_sk[1],_sk[2],"all");
+			qiD->editdata(_sk[0],_sk[1],_sk[2],"all");
 		}
 
 
@@ -584,7 +637,7 @@ int main(int argc, char *argv[]){
 
 			l++;
 			_sk[2] = argv[l];
-			qD->editdata(_sk[0],_sk[1],_sk[2],"L");
+			qiD->editdata(_sk[0],_sk[1],_sk[2],"L");
 			cs.clear();
 
 		}
@@ -602,7 +655,7 @@ int main(int argc, char *argv[]){
 
 			l++;
 			_sk[2] = argv[l];
-			qD->editdata(_sk[0],_sk[1],_sk[2],"r");
+			qiD->editdata(_sk[0],_sk[1],_sk[2],"r");
 			}
 			cs.clear();
 		}
@@ -620,10 +673,10 @@ int main(int argc, char *argv[]){
 			}
 
 			fmt::print("\nTables from the 'cmd' database:\n");
-			qC->listtbls_v1("","all");
+			qiC->listtbls_v1("","all");
 
 			fmt::print("\nTables from the 'dir' database:\n");
-			qD->listtbls_v1("","all");
+			qiD->listtbls_v1("","all");
 			cs.clear();
 		}
 
@@ -635,7 +688,7 @@ int main(int argc, char *argv[]){
 			}
 
 			fmt::print("\nTables from the 'cmd' database:\n");
-			qC->listtbls_v1("","all");
+			qiC->listtbls_v1("","all");
 			cs.clear();
 		}
 
@@ -647,7 +700,7 @@ int main(int argc, char *argv[]){
 			}
 			
 			fmt::print("\nTables from the 'dir' database:\n");
-			qD->listtbls_v1("","all");
+			qiD->listtbls_v1("","all");
 			cs.clear();
 		}
 
@@ -666,7 +719,7 @@ int main(int argc, char *argv[]){
 			_sk[0] = argv[l];
 			l++;
 			_sk[1] = argv[l];
-			qD->renametbl(_sk[0],_sk[1]);
+			qiD->renametbl(_sk[0],_sk[1]);
 		    }
 		    else{
 			fmt::print("\e[1mNOTE: [{}] argument required\e[0m\n",2);
@@ -687,7 +740,7 @@ int main(int argc, char *argv[]){
 				_sk[0] = argv[l];
 				l++;
 				_sk[1] = argv[l];
-				qC->renametbl(_sk[0],_sk[1]);
+				qiC->renametbl(_sk[0],_sk[1]);
 			}
 			else{
 				fmt::print("\e[1mNOTE: [{}] argument required\e[0m\n",2);
@@ -697,7 +750,6 @@ int main(int argc, char *argv[]){
 		}
 
 
-		// insert LV data
 		if(ut->matchopts(cs, "lDA")){
 
 			if(hf == 1) {
@@ -707,12 +759,25 @@ int main(int argc, char *argv[]){
 		
 
 			_sk[0] = "";
-			qD->listlabels(_sk[0],"all");
+			qiD->listlabels(_sk[0],"all");
 			cs.clear();
 		}
 
 
-		// insert LV data
+		if(ut->matchopts(cs, "lLDA")){
+
+			if(hf == 1) {
+				hl->getstr("lLDA");
+				break;
+			}
+		
+
+			_sk[0] = "";
+			qiD->listlabels(_sk[0],"LA");
+			cs.clear();
+		}
+
+
 		if(ut->matchopts(cs, "lDrA")){
 
 
@@ -722,7 +787,7 @@ int main(int argc, char *argv[]){
 			}
 		
 			_sk[0] = "";
-			qD->listlabels(_sk[0],"r+all");
+			qiD->listlabels(_sk[0],"r+all");
 			cs.clear();
 		}
 
@@ -741,7 +806,7 @@ int main(int argc, char *argv[]){
 			if( nl > 1 ){
 			l++;
 			_sk[0] = argv[l];
-			qD->listlabels(_sk[0],"L");
+			qiD->listlabels(_sk[0],"L");
 			}
 			else{
 				fmt::print("\e[1mNOTE: [{}] argument required\e[0m\n",1);
@@ -765,7 +830,7 @@ int main(int argc, char *argv[]){
 			if( nl > 1 ){
 			l++;
 			_sk[0] = argv[l];
-			qD->listlabels(_sk[0],"r");
+			qiD->listlabels(_sk[0],"r");
 			}
 			else{
 				fmt::print("\e[1mNOTE: [{}] argument required\e[0m\n",1);
@@ -789,7 +854,7 @@ int main(int argc, char *argv[]){
 			if( nl > 1 ){
 				l++;
 				_sk[0] = argv[l];
-				qD->getlabel(_sk[0],"L");
+				qiD->getlabel(_sk[0],"L");
 			}
 			else{
 				fmt::print("\e[1mNOTE: [{}] argument required\e[0m\n",1);
@@ -811,7 +876,7 @@ int main(int argc, char *argv[]){
 			if( nl > 1 ){
 				l++;
 				_sk[0] = argv[l];
-				qC->getlabel(_sk[0],"L");
+				qiC->getlabel(_sk[0],"L");
 			}
 			else{
 				fmt::print("\e[1mNOTE: [{}] argument required\e[0m\n",1);
@@ -834,7 +899,7 @@ int main(int argc, char *argv[]){
 			if( nl > 1 ){
 				l++;
 				_sk[0] = argv[l];
-				qD->getlabel(_sk[0],"r");
+				qiD->getlabel(_sk[0],"r");
 			}
 			else{
 				fmt::print("\e[1mNOTE: [{}] argument required\e[0m\n",1);
@@ -854,7 +919,7 @@ int main(int argc, char *argv[]){
 		
 			if( nl > 1 ){
 				_sk[0] = argv[l];
-				qD->listlabels(_sk[0],"r");
+				qiD->listlabels(_sk[0],"r");
 			}
 			else{
 				fmt::print("\e[1mNOTE: [{}] argument required\e[0m\n",1);
@@ -876,7 +941,7 @@ int main(int argc, char *argv[]){
 			if( nl > 1 ){
 				l++;
 				_sk[0] = argv[l];
-				qC->createtbls(_sk[0]);
+				qiC->createtbls(_sk[0]);
 			}
 			else{
 				fmt::print("\e[1mNOTE: [{}] argument required\e[0m\n",1);
@@ -897,7 +962,7 @@ int main(int argc, char *argv[]){
 			
 			l++;
 			_sk[0] = argv[l];
-			qD->createtbls(_sk[0]);
+			qiD->createtbls(_sk[0]);
 			}
 			else{
 				fmt::print("\e[1mNOTE: [{}] argument required\e[0m\n",1);
@@ -919,7 +984,7 @@ int main(int argc, char *argv[]){
 			if( nl > 1 ){
 				l++;
 				_sk[0] = argv[l];
-				qD->deletetbls(_sk[0]);
+				qiD->deletetbls(_sk[0]);
 			}
 			else{
 				fmt::print("\e[1mNOTE: [{}] argument required\e[0m\n",1);
@@ -940,7 +1005,7 @@ int main(int argc, char *argv[]){
 			if(nl > 1){
 				l++;
 				_sk[0] = argv[l];
-				qD->deletetbls(_sk[0]);
+				qiD->deletetbls(_sk[0]);
 			}
 			else{
 				fmt::print("\e[1mNOTE: [{}] argument required\e[0m\n",1);
@@ -969,7 +1034,7 @@ int main(int argc, char *argv[]){
 			
 			l++;
 			_sk[0] = argv[l];
-			qD->delentries(_sk[0], "r");
+			qiD->delentries(_sk[0], "r");
 
 			}else{
 				fmt::print("\e[1mNOTE: [{}] argument required\e[0m\n",1);
@@ -991,7 +1056,7 @@ int main(int argc, char *argv[]){
 
 			l++;
 			_sk[0] = argv[l];
-			qD->delentries(_sk[0], "L");
+			qiD->delentries(_sk[0], "L");
 		     }
 			else{
 				fmt::print("\e[1mNOTE: [{}] argument required\e[0m\n",1);
@@ -1012,7 +1077,7 @@ int main(int argc, char *argv[]){
 
 			l++;
 			_sk[0] = argv[l];
-			qC->delentries(_sk[0], "L");
+			qiC->delentries(_sk[0], "L");
 		    }
 			else{
 				fmt::print("\e[1mNOTE: [{}] argument required\e[0m\n",1);
@@ -1032,7 +1097,7 @@ int main(int argc, char *argv[]){
 
 			l++;
 			_sk[0] = argv[l];
-			qC->delentries(_sk[0], "r");
+			qiC->delentries(_sk[0], "r");
 		    }
 			else{
 				fmt::print("\e[1mNOTE: [{}] argument required\e[0m\n",1);
@@ -1055,7 +1120,7 @@ int main(int argc, char *argv[]){
 			
 			l++;
 			_sk[0] = argv[l];
-			qD->delentries(_sk[0], "r");
+			qiD->delentries(_sk[0], "r");
 			}
 			else{
 				fmt::print("\e[1mNOTE: [{}] argument required\e[0m\n",1);
@@ -1078,7 +1143,7 @@ int main(int argc, char *argv[]){
 
 			l++;	
 			_sk[0] = argv[l];
-			qD->setdata(_sk[0]);
+			qiD->setdata(_sk[0]);
 			}
 			else{
 				fmt::print("\e[1mNOTE: [{}] argument required\e[0m\n",1);
@@ -1101,10 +1166,10 @@ int main(int argc, char *argv[]){
 				l++;
 				_sk[0] = argv[l];
 				VS_t _vs;
-				qD->splitstr(_sk[0],_vs,',');
-				qD->br = true;
+				qiD->splitstr(_sk[0],_vs,',');
+				qiD->br = true;
 				for(auto e: _vs){
-					qD->modifylabel(e,"L");
+					qiD->modifylabel(e,"L");
 				}//c:loop
 			}
 			else{
@@ -1128,10 +1193,10 @@ int main(int argc, char *argv[]){
 				l++;
 				_sk[0] = argv[l];
 				VS_t _vs;
-				qD->splitstr(_sk[0],_vs,',');
-				qD->br = true;
+				qiD->splitstr(_sk[0],_vs,',');
+				qiD->br = true;
 				for(auto e: _vs){
-					qD->modifylabel(e,"r");
+					qiD->modifylabel(e,"r");
 				}//c:loop
 			}
 			else{
@@ -1154,7 +1219,7 @@ int main(int argc, char *argv[]){
 			if( nl > 1 ){
 				l++;
 				_sk[0] = argv[l];
-				qD->modifyvalue(_sk[0],"L");
+				qiD->modifyvalue(_sk[0],"L");
 			}
 			else{
 				fmt::print("\e[1mNOTE: [{}] argument required\e[0m\n",1);
@@ -1175,7 +1240,7 @@ int main(int argc, char *argv[]){
 			if( nl > 1 ){
 				l++;
 				_sk[0] = argv[l];
-				qC->modifyvalue(_sk[0],"L");
+				qiC->modifyvalue(_sk[0],"L");
 			}
 			else{
 				fmt::print("\e[1mNOTE: [{}] argument required\e[0m\n",1);
@@ -1197,7 +1262,7 @@ int main(int argc, char *argv[]){
 			if( nl > 1 ){
 				l++;
 				_sk[0] = argv[l];
-				qD->modifyvalue(_sk[0],"r");
+				qiD->modifyvalue(_sk[0],"r");
 			}
 			else{
 				fmt::print("\e[1mNOTE: [{}] argument required\e[0m\n",1);
@@ -1219,7 +1284,7 @@ int main(int argc, char *argv[]){
 		
 
 			_sk[0] = "all";
-			qD->checkaccess(_sk[0],"all");
+			qiD->checkaccess(_sk[0],"all");
 			cs.clear();
 
 		}
@@ -1239,7 +1304,7 @@ int main(int argc, char *argv[]){
 			if(nl > 1){
 				l++;
 				_sk[0] = argv[l];
-				qD->checkaccess(_sk[0],"L");
+				qiD->checkaccess(_sk[0],"L");
 				cs.clear();
 			}//c:condn
 			else{
@@ -1267,8 +1332,8 @@ int main(int argc, char *argv[]){
 					fmt::print("\n");
 					fmt::print("Table: \e[1m{}\e[0m\n", _tbl);
 					fmt::print("------\n");
-					qD->tblname = _tbl;
-					qD->search(_sk[0], "r+L");
+					qsD->tblname = _tbl;
+					qsD->search(_sk[0], "r+L");
 				}
 
 			}//c:condn
@@ -1300,9 +1365,9 @@ int main(int argc, char *argv[]){
 					fmt::print("\n");
 					fmt::print("Table: \e[1m{}\e[0m\n", _tbl);
 					fmt::print("------\n");
-					qD->tblname = _tbl;
+					qsD->tblname = _tbl;
 					//for(auto _l : _vs) qD->search(_l, "L");
-					qD->search(_sk[0], "r+V");
+					qsD->search(_sk[0], "r+V");
 				}
 
 			}//c:condn
@@ -1334,9 +1399,9 @@ int main(int argc, char *argv[]){
 					fmt::print("\n");
 					fmt::print("Table: \e[1m{}\e[0m\n", _tbl);
 					fmt::print("------\n");
-					qD->tblname = _tbl;
+					qsD->tblname = _tbl;
 					//for(auto _l : _vs) qD->search(_l, "L");
-					qD->search(_sk[0], "L");
+					qsD->search(_sk[0], "L");
 				}
 
 			}//c:condn
@@ -1368,8 +1433,8 @@ int main(int argc, char *argv[]){
 					fmt::print("\n");
 					fmt::print("Table: \e[1m{}\e[0m\n", _tbl);
 					fmt::print("------\n");
-					qD->tblname = _tbl;
-					qD->search(_sk[0], "V");
+					qsD->tblname = _tbl;
+					qsD->search(_sk[0], "V");
 				}
 
 			}//c:condn
@@ -1399,8 +1464,8 @@ int main(int argc, char *argv[]){
 					fmt::print("\n");
 					fmt::print("Table: \e[1m{}\e[0m\n", _tbl);
 					fmt::print("------\n");
-					qD->tblname = _tbl;
-					qD->search(_sk[0], "all");
+					qsD->tblname = _tbl;
+					qsD->search(_sk[0], "all");
 				}
 
 			}//c:condn
@@ -1434,9 +1499,9 @@ int main(int argc, char *argv[]){
 					fmt::print("\n");
 					fmt::print("Table: \e[1m{}\e[0m\n", _tbl);
 					fmt::print("------\n");
-					qD->tblname = _tbl;
+					qsD->tblname = _tbl;
 					//for(auto _l : _vs) qD->search(_l, "L");
-					qD->search(_sk[0], "r+all");
+					qsD->search(_sk[0], "r+all");
 				}
 
 			}//c:condn
@@ -1465,10 +1530,10 @@ int main(int argc, char *argv[]){
 			for(auto _tbl : vstbl["D"]){
 
 				fmt::print("-------------------\n");
-				fmt::print("Data from the table: {}\n", _tbl);
+				fmt::print("Data from the table: [{}]\n", _tbl);
 				fmt::print("-------------------\n");
-				qD->tblname = _tbl;
-				qD->search(_sk[0], "V");
+				qsD->tblname = _tbl;
+				qsD->search(_sk[0], "V");
 			}
 			}
 			else{
@@ -1493,10 +1558,10 @@ int main(int argc, char *argv[]){
 			for(auto _tbl : vstbl["D"]){
 
 				fmt::print("-------------------\n");
-				fmt::print("Data from the table: {}\n", _tbl);
+				fmt::print("Data from the table: [{}]\n", _tbl);
 				fmt::print("-------------------\n");
-				qD->tblname = _tbl;
-				qD->listlabels(_sk[0],"all");
+				qsD->tblname = _tbl;
+				qsD->listlabels(_sk[0],"all");
 			}
 			cs.clear();
 
@@ -1518,10 +1583,10 @@ int main(int argc, char *argv[]){
 			for(auto _tbl : vstbl["C"]){
 
 				fmt::print("-------------------\n");
-				fmt::print("Data from the table: {}\n", _tbl);
+				fmt::print("Data from the table: [{}]\n", _tbl);
 				fmt::print("-------------------\n");
-				qC->tblname = _tbl;
-				qC->getall();
+				qsC->tblname = _tbl;
+				qsC->getall();
 			}
 			cs.clear();
 
@@ -1545,7 +1610,21 @@ int main(int argc, char *argv[]){
 				break;
 			}
 		
-			qC->getall();
+			qiC->getall();
+			cs.clear();
+		}
+
+
+		if( ut->matchopts(cs, "lCLA"))
+		{
+
+
+			if(hf == 1) {
+				hl->getstr("lCLA");
+				break;
+			}
+		
+			qiC->listlabels(_sk[0],"LA");
 			cs.clear();
 		}
 
@@ -1562,7 +1641,7 @@ int main(int argc, char *argv[]){
 			
 			l++;
 			_sk[0] = argv[l];
-			qC->getexpl(_sk[0],"L");
+			qiC->getexpl(_sk[0],"L");
 		    }
 		    else{
 			fmt::print("\e[1mNOTE: [{}] argument required\e[0m\n",1);
@@ -1583,7 +1662,7 @@ int main(int argc, char *argv[]){
 
 				l++;
 				_sk[0] = argv[l];
-				qC->insfromfile(_sk[0]);
+				qiC->insfromfile(_sk[0]);
 			}
 
 		    else{
@@ -1607,7 +1686,7 @@ int main(int argc, char *argv[]){
 
 			l++;
 			_sk[0] = argv[l];
-			qD->insfromfile(_sk[0],"insert");
+			qiD->insfromfile(_sk[0],"insert");
 			}
 		    else{
 			fmt::print("\e[1mNOTE: [{}] argument required\e[0m\n",1);
@@ -1631,7 +1710,7 @@ int main(int argc, char *argv[]){
 
 			l++;
 			_sk[0] = argv[l];
-			qD->deletefromfile(_sk[0],"L");
+			qiD->deletefromfile(_sk[0],"L");
 			}
 		    else{
 			fmt::print("\e[1mNOTE: [{}] argument required\e[0m\n",1);
@@ -1653,7 +1732,7 @@ int main(int argc, char *argv[]){
 			
 			l++;
 			_sk[0] = argv[l];
-			qC->deletefromfile(_sk[0],"L");
+			qiC->deletefromfile(_sk[0],"L");
 
 		    }
 		    else{
@@ -1676,7 +1755,7 @@ int main(int argc, char *argv[]){
 			
 			l++;
 			_sk[0] = argv[l];
-			qC->insfromfile(_sk[0],"m+L");
+			qiC->insfromfile(_sk[0],"m+L");
 		    }
 		    else{
 			fmt::print("\e[1mNOTE: [{}] argument required\e[0m\n",1);
@@ -1698,7 +1777,7 @@ int main(int argc, char *argv[]){
 			
 			l++;
 			_sk[0] = argv[l];
-			qD->insfromfile(_sk[0],"update");
+			qiD->insfromfile(_sk[0],"update");
 		    }
 		    else{
 			fmt::print("\e[1mNOTE: [{}] argument required\e[0m\n",1);
@@ -1721,7 +1800,7 @@ int main(int argc, char *argv[]){
 
 			l++;
 			_sk[0] = argv[l];
-			qC->writeToFile(_sk[0],"all");
+			qiC->writeToFile(_sk[0],"all");
 		    }
 		    else{
 			fmt::print("\e[1mNOTE: [{}] argument required\e[0m\n",1);
@@ -1750,7 +1829,7 @@ int main(int argc, char *argv[]){
 
 			_sk[2] = "L";
 
-			qC->writeToFile(_sk[0],_sk[2],_sk[1]);
+			qiC->writeToFile(_sk[0],_sk[2],_sk[1]);
 		    }
 		    else{
 			fmt::print("\e[1mNOTE: [{}] argument required\e[0m\n",2);
@@ -1774,7 +1853,7 @@ int main(int argc, char *argv[]){
 
 			_sk[1] = "";
 
-			qD->writeToFile(_sk[0],_sk[1],"all");
+			qiD->writeToFile(_sk[0],_sk[1],"all");
 		    }
 		    else{
 			fmt::print("\e[1mNOTE: [{}] argument required\e[0m\n",1);
@@ -1799,7 +1878,7 @@ int main(int argc, char *argv[]){
 			l++;	
 			_sk[1] = argv[l];
 
-			qD->writeToFile(_sk[0],_sk[1],"L");
+			qiD->writeToFile(_sk[0],_sk[1],"L");
 		    }
 		    else{
 			fmt::print("\e[1mNOTE: [{}] argument required\e[0m\n",1);
@@ -1822,7 +1901,7 @@ int main(int argc, char *argv[]){
 			if( nl > 1 ){
 				l++;	
 				_sk[0] = argv[l];
-				qC->delentries(_sk[0], "L");
+				qiC->delentries(_sk[0], "L");
 			}
 			else {
 				fmt::print("  \e[1m[{}] argument required\e[0m\n",2);
@@ -1842,7 +1921,7 @@ int main(int argc, char *argv[]){
 			if( nl > 1 ){
 				l++;
 				_sk[0] = argv[l];
-				qC->getV(_sk[0], "V");
+				qiC->getV(_sk[0], "V");
 			}
 			else {
 				fmt::print("  \e[1m[{}] argument required\e[0m\n",2);
@@ -1863,7 +1942,7 @@ int main(int argc, char *argv[]){
 			if( nl > 1 ){
 				l++;	
 				_sk[0] = argv[l];
-				qC->getV(_sk[0], "r");
+				qiC->getV(_sk[0], "r");
 			}
 			else {
 				fmt::print("  \e[1m[{}] argument required\e[0m\n",2);
@@ -1890,10 +1969,10 @@ int main(int argc, char *argv[]){
 			l++;
 			_sk[0] = argv[l];
 			VS_t _vs;
-			qC->splitstr(_sk[0],_vs,',');
-			qC->br = true;
+			qiC->splitstr(_sk[0],_vs,',');
+			qiC->br = true;
 			for(auto e: _vs){
-				qC->modifylabel(e,"L");
+				qiC->modifylabel(e,"L");
 			}//c:loop
 		     }else {
 				fmt::print("  \e[1m[{}] argument required\e[0m\n",1);
@@ -1920,10 +1999,10 @@ int main(int argc, char *argv[]){
 			for(auto _tbl : vstbl["C"]){
 
 				fmt::print("-------------------\n");
-				fmt::print("Data from the table: {}\n", _tbl);
+				fmt::print("Data from the table: [{}]\n", _tbl);
 				fmt::print("-------------------\n");
-				qC->tblname = _tbl;
-				qC->search(_sk[0], "L");
+				qsC->tblname = _tbl;
+				qsC->search(_sk[0], "L");
 			}
 		     }
 		     else {
@@ -1952,11 +2031,11 @@ int main(int argc, char *argv[]){
 			for(auto _tbl : vstbl["C"]){
 
 				fmt::print("-------------------\n");
-				fmt::print("Data from the table: {}\n", _tbl);
+				fmt::print("Data from the table: [{}]\n", _tbl);
 				fmt::print("-------------------\n");
 
-				qC->tblname = _tbl;
-				qC->search(_sk[0], "V");
+				qsC->tblname = _tbl;
+				qsC->search(_sk[0], "V");
 			}
 		        }else {
 				fmt::print("  \e[1m[{}] argument required\e[0m\n",1);
@@ -1984,11 +2063,11 @@ int main(int argc, char *argv[]){
 				for(auto _tbl : vstbl["C"]){
 
 					fmt::print("-------------------\n");
-					fmt::print("Data from the table: {}\n", _tbl);
+					fmt::print("Data from the table: [{}]\n", _tbl);
 					fmt::print("-------------------\n");
 
-					qC->tblname = _tbl;
-					qC->search(_sk[0], "E");
+					qsC->tblname = _tbl;
+					qsC->search(_sk[0], "E");
 				}
 			}
 		        else {
@@ -2018,11 +2097,11 @@ int main(int argc, char *argv[]){
 				for(auto _tbl : vstbl["C"]){
 
 					fmt::print("-------------------\n");
-					fmt::print("Data from the table: {}\n", _tbl);
+					fmt::print("Data from the table: [{}]\n", _tbl);
 					fmt::print("-------------------\n");
 
-					qC->tblname = _tbl;
-					qC->search(_sk[0], "all");
+					qsC->tblname = _tbl;
+					qsC->search(_sk[0], "all");
 				}
 			}
 			else{
@@ -2048,7 +2127,7 @@ int main(int argc, char *argv[]){
 
 			l++;
 			_sk[0] = argv[l];
-			qC->insertdata(_sk[0]);
+			qiC->insertdata(_sk[0]);
 		     }
 		    else{
 			fmt::print("\e[1mNOTE: [{}] argument required\e[0m\n",1);
@@ -2076,7 +2155,7 @@ int main(int argc, char *argv[]){
 			l++;
 			_sk[1] = argv[l];
 
-			qC->editdata(_sk[0],_sk[1],"L");
+			qiC->editdata(_sk[0],_sk[1],"L");
 		    }
 		    cs.clear();
 		}
@@ -2101,7 +2180,7 @@ int main(int argc, char *argv[]){
 			l++;
 			_sk[1] = argv[l];
 
-			qD->editdata(_sk[0],_sk[1],"V");
+			qiD->editdata(_sk[0],_sk[1],"V");
 		    }
 
 		    else{
@@ -2128,7 +2207,7 @@ int main(int argc, char *argv[]){
 			l++;
 			_sk[1] = argv[l];
 
-			qD->editdata(_sk[0],_sk[1],"L");
+			qiD->editdata(_sk[0],_sk[1],"L");
 		   }
 
 		    else{
@@ -2149,7 +2228,7 @@ int main(int argc, char *argv[]){
 
 			l++;
 			_sk[0] = argv[l];
-			qC->setrLV(_sk[0]);
+			qiC->setrLV(_sk[0]);
 			cs.clear();
 		    }
 		    else{
@@ -2164,6 +2243,8 @@ int main(int argc, char *argv[]){
 		_sk[2].clear(); 
 
 	}//c:loop
+
+	delete ut,hl,qiC,qsC,qiD,qsD;
 
 	return 0;
 }//c:main
