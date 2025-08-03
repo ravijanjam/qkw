@@ -1,3 +1,4 @@
+import os
 import subprocess as sp
 import datetime
 import sys
@@ -17,7 +18,7 @@ def exec_cmd(_cmd,cc):
 
 	op = None
 	try:
-		logfile.write('\n----');
+		logfile.write('\n----')
 		logfile.write('\n[{}]:{}'.format(cc,genTS()))
 		logfile.write('\n\ncommand:\n {}'.format(_cmd))
 		op = sp.Popen(_cmd.split(' '),stdout=sp.PIPE, stderr=sp.PIPE)
@@ -35,17 +36,17 @@ def exec_cmd(_cmd,cc):
 	return True
 
 
-
-cc += 1
-cmd = "rm -rf ./build"
-print('Delete and recreate \'./build\' directory: [y/n]')
-for line in sys.stdin:
-	if 'y' == line.rstrip():
-		ok = exec_cmd(cmd,cc)
-		break;
-	else: 
-		print("  \'./build\' not deleted")
-		break;
+if os.path.exists(os.path.abspath("./build")):
+	cc += 1
+	cmd = "rm -rf ./build"
+	print('Delete and recreate \'./build\' directory: [y/n]', end=" ", flush=True)
+	for line in sys.stdin:
+		if 'y' == line.rstrip():
+			ok = exec_cmd(cmd,cc)
+			break
+		else: 
+			print("  \'./build\' not deleted")
+			break
 
 
 cc+=1
@@ -78,19 +79,36 @@ cc += 1
 cmd = "pkg-config --version"
 ok = exec_cmd(cmd,cc)
 
+cc += 1
+cmd = "unzip --version"
+ok = exec_cmd(cmd, cc)
+
 
 # Get the deps into build directory
 cc += 1
-url = "https://github.com/fmtlib/fmt.git"
+
+url = "https://github.com/fmtlib/fmt/archive/refs/tags/11.2.0.zip"
 dd = './build'
-cmd = "git -C {} clone {}".format(dd,url)
+cmd = f"curl -L {url} -o {dd}/fmt.zip"
 exec_cmd(cmd,cc)
 
 cc += 1
-url = "https://github.com/jbeder/yaml-cpp"
-cmd = "git -C {} clone {}".format(dd,url)
+url = "https://github.com/jbeder/yaml-cpp/archive/refs/tags/0.8.0.zip"
+cmd = f"curl -L {url} -o {dd}/yaml-cpp.zip"
 exec_cmd(cmd,cc)
 
+cc += 1
+cmd = f"unzip -q {dd}/fmt.zip -d {dd}"
+exec_cmd(cmd,cc)
+cmd = f"unzip -q {dd}/yaml-cpp.zip -d {dd}"
+exec_cmd(cmd,cc)
+
+cc += 1
+cmd = f"rm {dd}/fmt.zip {dd}/yaml-cpp.zip"
+exec_cmd(cmd,cc)
+
+
+# we need to build yaml-cpp and fmtlib, once we get source files
 
 # check for the headers by compiling
 cc += 1
@@ -139,6 +157,6 @@ cmd = "\nAfter building the libraries please run: \n \033[1m{}\033[0m\n".format(
 logfile.write(cmd)
 print(cmd)
 
-cmd = "Please add the macros to \'bashrc\'in the directory :\n  |{} \nfor more functionality, refer to the docs: \n  |{}\n".format('github/bash','github.com/wiki')
+cmd = "Please add the macros to \'bashrc\'in the directory :\n  |{} \nfor more functionality, refer to the docs: \n  |{}\n".format('~/.bashrc','https://github.com/ravijanjam/qkw?tab=readme-ov-file#qkw--generalizing-aliasing')
 logfile.write(cmd)
 print(cmd)
