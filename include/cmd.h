@@ -35,6 +35,7 @@ class cmd : public qkw{
 		void getrLV(string&,string);
 		void setLE(string&);
 		void getrLE(string&,string);
+		void listlabels(string &st, string opt);
 		int getV(string&,string);
 		void getrV(string&,string);
 		void getlabel(string &sl, string opt);

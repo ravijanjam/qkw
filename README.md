@@ -1,47 +1,64 @@
-# QKW 
-## Generalizing aliasing to simplify navigation, and executing complex multi-line terminal command sequences¶
+# QKW | Generalizing Aliasing
+## Simplify navigation, alias CLI command sequence nuances, annotate, add help-strings, etc¶
 
-The purpose of this application is to tag anything with a _label_ and, use it to retrieve the associated data for other applications. Some of qkw's use cases:
+The purpose of this application is to tag anything with a _label_ and, use it to retrieve the associated data for other applications. Data is stored as:
 
-* Quickly test a set of commands with different options in different environments. 
-* Rapidly create variations, and save them with a versioned tag. 
+```
+	<label> : 
+		<data>
+
+		<help-string,annotation,stdout,etc>
+
+	(or)
+
+	<label>:<data>
+```
+
+## Features
+
+* **Directory navigation**: Use the bookmarked _keys_ to hop across directories
+* Assign tags/labels to programmable/non-programmable structures. 
 * Add a _help-string_ or _note_ with the associated data.
-* Similar functionality, but different command base/ options can be tagged with identical tags and executed.
-* Store the data in a file rather than a executable script, and also search for the content. 
-* Save/retrieve the script formatted as a string, as it is to/from a file. 
-* Use this as a _clipboard_ to store the stdout/stderr for inspection or analysis. 
-* Easily share the functional blocks of your _application like initialization, settings, etc_ by just sharing the database, where user is abstracted away from the details and focuses on using the functionality by mere execution of the tags.
+* Store, retrieve and search the data in a file rather than a executable script, formatted as a string.
+* **Clipboard**: to store the stdout/stderr for inspection or analysis. 
+* **Manage API distribution w/documentation**: Easily share the functional blocks of your _application like initialization, settings, etc_ by just sharing the database, where user is abstracted away from the details and focuses on using the functionality by mere execution of the tags.
+* **DevOps automation** : 
+	* Rapidly create variations, and save them with a versioned tag. 
+	* Quickly test a set of commands with different options in different environments. 
+	* Replace shell/bash aliasing using qkw's dynamic tagging.
+	* Similar functionality, but different command base/ options can be tagged with identical tags and executed.
 
 
 For example:
 
-> In different environments, say in linux flavors, one might be **repeating the same functionality, but with a different set of commands or their variations**. One of the first things a user would like to do in linux is to have their _bashrc_ configured with their personal set of commands. Using this tool it becomes easy, by saving under two C-tables, say one for _ubuntu_, and one for _opensuse_. It's enough if the end user just retrieves and executes(sources) the tag bashrc.
+> In different linux flavors, one might be _**repeating identical functionality in different environments**_.  One of the first things a user would like to do is to have their _bashrc_ configured with their personal set of commands. 
+
+> Sourcing the tags **opensuse.bashrc**, and **ubuntu.bashrc** would readily setup your environment. The data for OS specific environments are in the command tables.
 
 
 <br>
 
+## Getting Started
 
-The basic tables used to store the data
+[**Manual**](https://github.com/ravijanjam/qkw/blob/master/docs/qkw-manual.pdf) contains information about use cases, and all the available options.
 
-*  _cmd_ :commands,scripts,etc with a note
-*  _dir_ :directory paths
+[**QuickStart**](https://github.com/ravijanjam/qkw/wiki/QuickStart) guide helps you get started with using the basic commands.
 
 
-### CMD tables
-![](https://github.com/ravijanjam/qkw/blob/master/docs/cmd_table.png)
+## Installation (Ubuntu/Debian)
 
-### DIR tables
-![](https://github.com/ravijanjam/qkw/blob/master/docs/dir_table.png)
+* Clone the repo
+```bash
+git clone https://github.com/ravijanjam/qkw.git
+cd qkw
+```
 
-**Manual**: Refer to the [[manual]](https://github.com/ravijanjam/qkw/blob/master/docs/qkw-manual.pdf) for all the available options, use cases and other information.  
-
-**Installation (Ubuntu/Debian)**
-
+* Install the dependencies
 ```bash
 
 apt-get update
 apt-get install -y git gcc g++ pkg-config cmake make
-apt-get install -y libsqlite3-dev
+apt-get install -y libsqlite3-dev libyaml-cpp-dev
 ```
 
 * To keep building simple, a python script is set up which checks for requirements _(fmt,sqlite3,yaml)_, and a sanity check for required headers. Any errors will be in writen to the log file
@@ -82,138 +99,20 @@ man qkw
 
 <hr>
 
-## Quick Start
 
-There are about 75+ options to play with. Some of the most important ones demonstrated here. For all the available options, please read the section _Options_ in the [[manual]](https://github.com/ravijanjam/qkw/blob/master/docs/qkw-manual.pdf). 
+The basic tables used to store the data
 
-The core option set 
-* add
-* delete
-* modify
-* search
-
-<hr>
-
-* Get help
-```bash
-qkw -h <option_string>
-
-# Egs
-qkw -h -T -cC
-qkw -h -D -lA
-```
-
-* Create two tables
-```bash
-qkw -T -cC cmd_1
-qkw -T -cD dir_1
-```
-
-* List the tables, and their types
-```bash
-qkw -T -lA
-```
-
-* Add the tables to config file. 
-```bash
-qkw -cfgfile
-```
-
-* Content retrieval, gets data from the second column or V-column based on labels/tags
-
-```bash
-# only one label taken
-qkw -gC <label> # C-tables
-qkw -gD <label> # D-tables
-```
-
-* Visit a few directories and add labels
-```bash
-# current directory information 
-qkw -addpath p1  # in dir /a/b/c
-qkw -addpath p2  # in dir x/y
-```
-
-* Add content to the tables manually as _label:directory_path_ strings
-```bash
-# directories, D tables
-# labels can have additional characters for modularity
-# and easy to remember
-qkw -iD m.x:"/u/v/w/x"
-qkw -iD m.p:"/u/v/w/x/p"
-qkw -iD n:"/q/r"
-
-# commands, C tables
-qkw -iC devpush:"git push origin dev"
-qkw -iC open:"vi /path/to/my/todo/list.txt"
-```
-
-* Check the added content D:directories, C:commands
-```bash
-qkw -D -lA
-qkw -C -lA
-```
+*  _cmd_ :commands,scripts,etc with a note
+*  _dir_ :directory paths
 
 
-* _Bulk Changes_: adding/removing/modifying data via a file.
-```bash
-# template file with fields to populate information
-# label,value,expl fields
-qkw -gettemplate cmdinput.data 
+### CMD tables
+![](https://github.com/ravijanjam/qkw/blob/master/docs/cmd_table.png)
 
-# write to a file when labels are provided
-qkw -C -if cmdoutput.data <L,L...,L> # L:labels
+### DIR tables
+![](https://github.com/ravijanjam/qkw/blob/master/docs/dir_table.png)
 
-# write from file to the database
-qkw -C -if cmdinput.data
 
-# add modified data from file, should have existing label
-# helps when you have changes to make or reuse with variations
-qkw -C -mf cmdinput.data
+<br>
 
-# delete the modified data from file, label should exist
-# rest of the fields are ignored
-qkw -C -df cmdinput.data
-
-# same operations work for dir tables, but with different format
-# NOTE: -gettemplate option doesn't work for dir tables
-# since the format is "label:directory_path", one per line
-qkw -D -if dirinput.data
-qkw -D -mf dirinput.data
-qkw -D -df dirinput.data
-qkw -D -wf diroutput.data <L,L...,L>  # L:labels
-```
-
-* Check the added data
-```bash
-qkw -C -lA
-```
-
-* Add the macros `cd2:navigation`, and `runfast:command execution` in your bashrc or it's equivalent
-
-```bash
-# navigation
-cd2(){
-  cd `qkw -gD $1`
-}
-
-# command execution
-runfast(){
-  str=`qkw -gC $1`
-  qkw -exec “${str}”
-}
-```
-
-`source ~/.bashrc` and start using the tags
-
-```bash
-# takes you to directory /u/v/w/x
-cd2 m 
-```
-
-```bash
-# will run your the tagged lss commands
-runfast lss 
-```
-
-To learn more, on how to set up `macros` and other advanced use cases on how to use `qkw`, please consult the [[manual]](https://github.com/ravijanjam/qkw/blob/master/docs/qkw-manual.pdf)
+_Category_ : CLI tools, productivity, bash utility, aliasing, labeling, sqlite, g++, commandline, documentation, docstring

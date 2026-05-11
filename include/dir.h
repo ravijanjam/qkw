@@ -50,7 +50,8 @@ class dir : public qkw{
 			{"Q9","SELECT rowid,* FROM {} WHERE L in ({})"},
 			{"Q10","SELECT * FROM {} WHERE rowid in ({})"},
 			{"Q11","SELECT rowid, * FROM {}"},
-			{"Q12","DELETE FROM {} WHERE L IN ('{}')"}
+			{"Q12","DELETE FROM {} WHERE L IN ('{}')"},
+			{"Q13","SELECT rowid,L FROM {}"},
 		};
 
 

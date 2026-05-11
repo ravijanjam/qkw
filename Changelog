@@ -1,0 +1,15 @@
+
+-----------
+Nov 14,2020
+-----------
+* Added two switches to get the list of all the labels with their rowids
+  qkw -{C,D} -lLA
+
+-----------
+June 16,2025
+-----------
+* Edited the older version of `fmt::format` to work with new version of fmt by making format-strings runtime based
+* fmt currently uses two types of format strings, 1. Run Time based/dynamic  2.
+Compile Time Base/Static.
+* Wrapped every dynamic format string in `fmt::runtime()` solved the building
+issue.

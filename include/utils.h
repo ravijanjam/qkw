@@ -17,6 +17,7 @@ class utils{
 
 		int optstr(string&);
 		void suboptsplit(string&);
+		string normalizegaps(string &s, int d, string _ts="");
 		bool matchopts(CS_t&,string);
 		void fileexists(string&);
 		bool charcheck(string,string);

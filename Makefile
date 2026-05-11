@@ -1,5 +1,5 @@
 OPTS_SQLITE3 = `pkg-config --cflags --libs sqlite3`
-OPTS_YAML-CPP = -L/usr/lib/x86_64-linux-gnu -lyaml-cpp -I/usr/include/yaml-cpp/ 
+OPTS_YAML-CPP = -L/usr/lib/x86_64-linux-gnu -lyaml-cpp -I/usr/local/include/yaml-cpp/ 
 OPTS_FMT = `pkg-config --cflags --libs fmt`
 ALL_OPTS = $(OPTS_FMT) $(OPTS_SQLITE3) ${OPTS_YAML-CPP}
 
@@ -52,6 +52,7 @@ install:
 	mkdir -p $(MAN_PATH) >> /dev/null 
 	cp $(INSTALL-DATA)/qkw.1.gz $(MAN_PATH)/
 	cp $(INSTALL-DATA)/userdata.db $(CFG_PATH)/
+	cp $(INSTALL-DATA)/qkw-config.yaml $(CFG_PATH)/
 	
 	@echo "--------------------------------------------------------"
 	@echo " Please set QKW_CONFIG to /etc/qkw-data/qkw-config.yaml"
